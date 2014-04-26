@@ -99,6 +99,7 @@ void Line::Draw() {
 	if (octant == 1) {
 		while (x <= _end.x()) {
 			//img.Plot(x, y, colorField);
+			setPixel(x, y, colorField);
 			if (pi < 0) {
 				pi += 2 * _Dy;
 				++x;
@@ -113,6 +114,7 @@ void Line::Draw() {
 	else if (octant == 2) {
 		while (y <= end.y()) {
 			//img.Plot(x, y, colorField);
+			setPixel(x, y, colorField);
 			if (pi < 0) {
 				pi += 2 * _Dy;
 				++y;
@@ -127,6 +129,7 @@ void Line::Draw() {
 	else if (octant == 8) {
 		while (x <= _end.x()) {
 			//img.Plot(x, y, colorField);
+			setPixel(x, y, colorField);
 			if (pi < 0) {
 				pi += 2 * _Dy;
 				++x;
@@ -141,6 +144,7 @@ void Line::Draw() {
 	else if (octant == 7) {
 		while (x >= _end.x()) {
 			//img.Plot(y, x, colorField);
+			setPixel(x, y, colorField);
 			if (pi < 0) {
 				pi += 2 * _Dy;
 				--x;
@@ -208,4 +212,26 @@ void Line::SetEndingPoint(Vec2f _end) {
 	A = end.y() - start.y();
 	B = start.x() - end.x();
 	C = end.x()*start.y() - start.x()*end.y();
+}
+
+
+
+
+
+
+
+
+
+
+void Line::setPixel(const float &x, const float &y, const Vec3f &color) {
+	float red, green, blue;
+	color.Get(red, green, blue);
+	glColor3f(red, green, blue);
+
+	glPointSize(1);
+	glBegin(GL_POINT);
+		glVertex2i(x, y);
+	glEnd();
+
+	glFlush();
 }
