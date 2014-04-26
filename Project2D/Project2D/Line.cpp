@@ -229,7 +229,7 @@ void Line::setPixel(const float &x, const float &y, const Vec3f &color) {
 	glColor3f(red, green, blue);
 
 	glPointSize(1);
-	glBegin(GL_POINT);
+	glBegin(GL_POINTS);
 		glVertex2i(x, y);
 	glEnd();
 

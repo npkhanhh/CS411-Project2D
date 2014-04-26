@@ -12,7 +12,7 @@ private:
 
 	float F(float x, float y);
 	void rDraw(float x, float y, float pi);
-	
+	void setPixel(const float &x, const float &y, const Vec3f &color);
 public:
 	Line();
 	Line(Vec2f _start, Vec2f _end);
@@ -24,6 +24,5 @@ public:
 	void SetColor(Vec3f _color);
 	void SetStartingPoint(Vec2f _start);
 	void SetEndingPoint(Vec2f _end);
-	void setPixel(const float &x, const float &y, const Vec3f &color);
 };
 
