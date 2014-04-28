@@ -1,4 +1,5 @@
 #include"Line.h"
+#include "A.h"
 
 int wWidth = 400;	// width of window
 int wHeight = 300;	// height of window
@@ -40,9 +41,9 @@ void RenderScene(void) {
 	glEnd();
 	glFlush();
 
-	Line line(Vec2f(0, 0), Vec2f(100, 100), Vec3f(1, 0, 0));
-	line.Draw();
 
+	A a;
+	a.Draw();
 	
 }
 

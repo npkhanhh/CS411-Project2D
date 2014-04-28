@@ -2,6 +2,7 @@
 #include "vectors.h"
 #include <vector>
 #include"GL/glut.h"
+#include <algorithm>
 
 class Line 
 {

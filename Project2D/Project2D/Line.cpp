@@ -22,119 +22,52 @@ Line::~Line()
 
 void Line::Draw() {
 	if (start.x() == end.x() && start.y() == end.y()) {
+		// the line segment is just a point
 		setPixel(end.x(), end.y(), colorField);
 		return;
 	}
-	// The Dx and Dy, starting and ending point  use for this function
-	// when !(0<m<1), we have to swap Dx, Dy, start, end point
-	float _Dx, _Dy;			
-	Vec2f _start, _end;
 
-	if (start.x() == end.x()) {
-		// the line is vertical
-		for (int i = start.y(); i <= end.y(); ++i) {
-			setPixel(start.x(), i, colorField);
-		}
-		return;
+	int x1 = start.x(), x2 = end.x(), y1 = start.y(), y2 = end.y();
+	int _Dx, _Dy, _D, incrY;
+	bool slopegt1 = false;
+	int pi;
+	_Dx = abs(Dx); _Dy = abs(Dy);
+	
+	if (_Dy > _Dx) {
+		swap(x1, y1);
+		swap(x2, y2);
+		swap(_Dx, _Dy);
+		slopegt1 = true;	// the slope is gtreater than 1, means that the line is in the 2nd or the 7th octant
 	}
 	
-	float m = (float)this->Dy / this->Dx;
-	short octant = 0;
-
-	if (0 <= m && m < 1) {
-		_Dx = this->Dx;
-		_Dy = this->Dy;
-		_start = this->start;
-		_end = this->end;
-		octant = 1;
-	}
-	else if (1 <= m) {
-		_Dx = this->Dy;
-		_Dy = this->Dx;
-		_start.Set(this->start.y(), this->start.x());
-		_end.Set(this->end.y(), this->end.x());
-		octant = 2;
-	}
-	else if (-1 < m && m < 0) {
-		_Dx = this->Dx;
-		_Dy = -this->Dy;
-		_start = this->start;
-		_end = this->end;
-		octant = 8;
-	}
-	else {
-		_Dx = -this->Dy;
-		_Dy = this->Dx;
-		_start.Set(this->start.y(), this->start.x());
-		_end.Set(this->end.y(), this->end.x());
-		octant = 7;
+	if (x1 > x2) {
+		swap(x1, x2);
+		swap(y1, y2);
 	}
 
-	float pi = 2 * _Dy - _Dx;
-	float x = _start.x();
-	float y = _start.y();
+	if (y1 > y2)
+		incrY = -1;
+	else
+		incrY = 1;
 
-
-	
-	if (octant == 1) {
-		while (x <= _end.x()) {
-			setPixel(x, y, colorField);
-			if (pi < 0) {
-				pi += 2 * _Dy;
-				++x;
-			}
-			else {
-				pi += 2 * _Dy - 2 * _Dx;
-				++x;
-				++y;
-			}
+	_D = 2 * _Dy - _Dx;
+	while (x1 < x2) {
+		if (_D <= 0) {
+			pi = 2 * _Dy;
+			_D += pi;
 		}
-	}
-	else if (octant == 2) {
-		while (y <= end.y()) {
-			setPixel(x, y, colorField);
-			if (pi < 0) {
-				pi += 2 * _Dy;
-				++y;
-			}
-			else {
-				pi += 2 * _Dy - 2 * _Dx;
-				++x;
-				++y;
-			}
+		else {
+			pi = 2 * (_Dy - _Dx);
+			_D += pi;
+			y1 += incrY;
 		}
+		++x1;
+		if (slopegt1)
+			setPixel(y1, x1, colorField);
+		else
+			setPixel(x1, y1, colorField);
 	}
-	else if (octant == 8) {
-		while (x <= _end.x()) {
-			setPixel(x, y, colorField);
-			if (pi < 0) {
-				pi += 2 * _Dy;
-				++x;
-			}
-			else {
-				pi += 2 * _Dy - 2 * _Dx;
-				++x;
-				--y;
-			}
-		}
-	}
-	else if (octant == 7) {
-		while (x >= _end.x()) {
-			setPixel(x, y, colorField);
-			if (pi < 0) {
-				pi += 2 * _Dy;
-				--x;
-			}
-			else {
-				pi += 2 * _Dy - 2 * _Dx;
-				--x;
-				++y;
-			}
-		}
-	}
-	
 }
-
 
 void Line::SetColor(Vec3f _color) {
 	//this->colorField = _color;
