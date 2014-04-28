@@ -10,8 +10,6 @@ private:
 	Vec3f colorField;
 	float Dx, Dy, A, B, C;
 
-	float F(float x, float y);
-	void rDraw(float x, float y, float pi);
 	void setPixel(const float &x, const float &y, const Vec3f &color);
 public:
 	Line();
@@ -22,7 +20,6 @@ public:
 	void Draw();
 	
 	void SetColor(Vec3f _color);
-	void SetStartingPoint(Vec2f _start);
-	void SetEndingPoint(Vec2f _end);
+	void setEndPoints(const Vec2f &_start, const Vec2f &_end);
 };
 
