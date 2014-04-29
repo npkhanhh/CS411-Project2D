@@ -1,5 +1,5 @@
 #include"Line.h"
-#include "A.h"
+#include "Letter.h"
 
 int wWidth = 400;	// width of window
 int wHeight = 300;	// height of window
@@ -42,7 +42,7 @@ void RenderScene(void) {
 	glFlush();
 
 
-	A a;
+	Z a;
 	a.Draw();
 	
 }

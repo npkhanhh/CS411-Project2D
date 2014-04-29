@@ -19,7 +19,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v110</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -76,7 +76,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="A.h" />
     <ClInclude Include="Letter.h" />
     <ClInclude Include="Line.h" />
     <ClInclude Include="Object2D.h" />
@@ -84,7 +83,6 @@
     <ClInclude Include="vectors.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="A.cpp" />
     <ClCompile Include="Letter.cpp" />
     <ClCompile Include="Line.cpp" />
     <ClCompile Include="main.cpp" />
