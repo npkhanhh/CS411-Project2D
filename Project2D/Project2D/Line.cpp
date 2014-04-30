@@ -121,3 +121,30 @@ void Line::setEndPoints(const Vec2f &_start, const Vec2f &_end) {
 	B = start.x() - end.x();
 	C = end.x()*start.y() - start.x()*end.y();
 }
+
+float Line::ymax()
+{
+	return start.y() > end.y() ? start.y() : end.y();
+}
+
+float Line::ymin()
+{
+	return start.y() < end.y() ? start.y() : end.y();
+}
+
+float Line::xmax()
+{
+	return end.x();
+}
+
+float Line::xmin()
+{
+	return start.x();
+}
+
+void Line::equation(float &a, float &b, float &c)
+{
+	a = A;
+	b = B;
+	c = C;
+}

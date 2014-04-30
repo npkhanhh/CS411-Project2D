@@ -1,22 +1,11 @@
 #pragma once
-#pragma once
-#include"Line.h"
+#include"Object2D.h"
 
-class Letter
-{
-protected:
-	vector<Line> v;
-	Vec3f color;
-public:
-	Letter(void);
-	~Letter(void);
 
-	void Draw();
-};
 
 
 class A :
-	public Letter
+	public Object2D
 {
 public:
 	A();
@@ -24,7 +13,7 @@ public:
 };
 
 class B :
-	public Letter
+	public Object2D
 {
 public:
 	B(void);
@@ -32,7 +21,7 @@ public:
 };
 
 class C :
-	public Letter
+	public Object2D
 {
 public:
 	C(void);
@@ -40,7 +29,7 @@ public:
 };
 
 class D :
-	public Letter
+	public Object2D
 {
 public:
 	D(void);
@@ -48,7 +37,7 @@ public:
 };
 
 class E :
-	public Letter
+	public Object2D
 {
 public:
 	E(void);
@@ -56,7 +45,7 @@ public:
 };
 
 class F :
-	public Letter
+	public Object2D
 {
 public:
 	F(void);
@@ -65,7 +54,7 @@ public:
 
 
 class G :
-	public Letter
+	public Object2D
 {
 public:
 	G(void);
@@ -73,7 +62,7 @@ public:
 };
 
 class H :
-	public Letter
+	public Object2D
 {
 public:
 	H(void);
@@ -81,7 +70,7 @@ public:
 };
 
 class I :
-	public Letter
+	public Object2D
 {
 public:
 	I(void);
@@ -89,7 +78,7 @@ public:
 };
 
 class J :
-	public Letter
+	public Object2D
 {
 public:
 	J(void);
@@ -97,7 +86,7 @@ public:
 };
 
 class K :
-	public Letter
+	public Object2D
 {
 public:
 	K(void);
@@ -105,7 +94,7 @@ public:
 };
 
 class L :
-	public Letter
+	public Object2D
 {
 public:
 	L(void);
@@ -113,7 +102,7 @@ public:
 };
 
 class M :
-	public Letter
+	public Object2D
 {
 public:
 	M(void);
@@ -121,7 +110,7 @@ public:
 };
 
 class N :
-	public Letter
+	public Object2D
 {
 public:
 	N(void);
@@ -129,7 +118,7 @@ public:
 };
 
 class O :
-	public Letter
+	public Object2D
 {
 public:
 	O(void);
@@ -137,7 +126,7 @@ public:
 };
 
 class P :
-	public Letter
+	public Object2D
 {
 public:
 	P(void);
@@ -145,7 +134,7 @@ public:
 };
 
 class Q :
-	public Letter
+	public Object2D
 {
 public:
 	Q(void);
@@ -153,7 +142,7 @@ public:
 };
 
 class R :
-	public Letter
+	public Object2D
 {
 public:
 	R(void);
@@ -161,7 +150,7 @@ public:
 };
 
 class S :
-	public Letter
+	public Object2D
 {
 public:
 	S(void);
@@ -169,7 +158,7 @@ public:
 };
 
 class T :
-	public Letter
+	public Object2D
 {
 public:
 	T(void);
@@ -177,7 +166,7 @@ public:
 };
 
 class U :
-	public Letter
+	public Object2D
 {
 public:
 	U(void);
@@ -185,7 +174,7 @@ public:
 };
 
 class V :
-	public Letter
+	public Object2D
 {
 public:
 	V(void);
@@ -193,7 +182,7 @@ public:
 };
 
 class W :
-	public Letter
+	public Object2D
 {
 public:
 	W(void);
@@ -201,7 +190,7 @@ public:
 };
 
 class X :
-	public Letter
+	public Object2D
 {
 public:
 	X(void);
@@ -209,7 +198,7 @@ public:
 };
 
 class Y :
-	public Letter
+	public Object2D
 {
 public:
 	Y(void);
@@ -217,7 +206,7 @@ public:
 };
 
 class Z :
-	public Letter
+	public Object2D
 {
 public:
 	Z(void);

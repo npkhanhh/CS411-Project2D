@@ -19,8 +19,12 @@ public:
 	~Line();
 
 	void Draw();
-	
 	void SetColor(Vec3f _color);
 	void setEndPoints(const Vec2f &_start, const Vec2f &_end);
+	float ymax();
+	float ymin();
+	float xmax();
+	float xmin();
+	void equation(float &a, float &b, float &c); // use to return A, B, C
 };
 

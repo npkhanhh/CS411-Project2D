@@ -1,10 +1,10 @@
 #pragma once
-#include"Line.h"
+#include"Object2D.h"
 
-class Polygon
+class Polygon : Object2D
 {
-private:
-	vector<Line> v;
+
+
 public:
 	Polygon(void);
 

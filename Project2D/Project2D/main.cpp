@@ -44,7 +44,7 @@ void RenderScene(void) {
 
 	Z a;
 	a.Draw();
-	
+	a.fillColor();
 }
 
 void SetupRC(void) {
