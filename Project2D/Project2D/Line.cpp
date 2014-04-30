@@ -22,19 +22,16 @@ Line::~Line()
 
 void Line::Draw(const int &x, const int &y) {
 	
-	// _start and _end is the local point used in this method
-	// they store the position of the points after being translated
-	Vec2f _start, _end;
-	_start.Set(start.x() + x, start.y() + y);
-	_end.Set(end.x() + x, end.y() + y);
+	start.Set(start.x() + x, start.y() + y);
+	end.Set(end.x() + x, end.y() + y);
 
-	if (_start.x() == _end.x() && _start.y() == _end.y()) {
+	if (start.x() == end.x() && start.y() == end.y()) {
 		// the line segment is just a point
-		setPixel(_end.x(), _end.y(), colorField);
+		setPixel(end.x(), end.y(), colorField);
 		return;
 	}
 
-	int x1 = _start.x(), x2 = _end.x(), y1 = _start.y(), y2 = _end.y();
+	int x1 = start.x(), x2 = end.x(), y1 = start.y(), y2 = end.y();
 	int _Dx, _Dy, _D, incrY;
 	bool slopegt1 = false;
 	int pi;
