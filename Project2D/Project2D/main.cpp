@@ -75,8 +75,8 @@ void RenderScene(void) {
 	}*/
 
 	F a;
-	a.Draw();
-	a.fillColor();
+	a.Draw(0, 0);
+	//a.fillColor();
 }
 
 void SetupRC(void) {
@@ -97,7 +97,7 @@ void MouseClick(int iButton, int iState, int x, int y) {
 			x_2 = x;
 			y_2 = wHeight - y;
 			globalLine.setEndPoints(Vec2f(x_1, y_1), Vec2f(x_2, y_2));
-			globalLine.Draw();
+			globalLine.Draw(0, 0);
 		}
 		
 	}
@@ -108,5 +108,5 @@ void MouseMotionFunction(int x, int y) {
 	y_2 = wHeight - y;
 	globalLine.setEndPoints(Vec2f(x_1, y_1), Vec2f(x_2, y_2));
 	RenderScene();
-	globalLine.Draw();
+	globalLine.Draw(0, 0);
 }

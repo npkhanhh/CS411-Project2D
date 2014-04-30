@@ -18,7 +18,7 @@ public:
 	Line(Vec2f _start, Vec2f _end, Vec3f _colorField);
 	~Line();
 
-	void Draw();
+	void Draw(const int &x, const int &y);
 	void SetColor(Vec3f _color);
 	void setEndPoints(const Vec2f &_start, const Vec2f &_end);
 	float ymax();

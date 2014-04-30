@@ -1,18 +1,17 @@
 #pragma once
-#include <vector>
-#include "Line.h"
-#include <iostream>
+#include "Polygon.h"
+
 using namespace std;
 
 class Object2D
 {
 protected:
-	vector<Line> v;
+	vector<Polygon> polygons;
 	Vec3f color;
 public:
 	Object2D(void);
-	void fillColor();
-	void Draw();
+	//void fillColor();
+	void Draw(const int &x, const int &y);
 	~Object2D(void);
 };
 
