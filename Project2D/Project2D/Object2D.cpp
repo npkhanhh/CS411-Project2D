@@ -18,7 +18,6 @@ void Object2D::fillColor()
 	float temp;
 	float A, B, C;
 	vector<float> intersect;
-
 	for(int i=0; i<v.size(); ++i)
 	{
 		temp = v[i].ymax();
@@ -37,16 +36,20 @@ void Object2D::fillColor()
 			v[j].equation(A, B, C);
 			if(A!=0)
 				temp = (-(B*i+C))/A;
-			if(temp<=v[j].xmax() && temp>=v[j].xmin() && i<=v[j].ymax() && i>=v[j].ymin())
+			
+			if(temp<=v[j].xmax() && temp>=v[j].xmin() && i<v[j].ymax() && i>=v[j].ymin())
 				intersect.push_back(temp);
 		}
-		sort(intersect.begin(), intersect.end());
-		for(int j = 0; j<intersect.size(); j+=2)
+		if(!intersect.empty())
 		{
-			if(j+1<intersect.size())
+			sort(intersect.begin(), intersect.end());
+			for(int j = 0; j<intersect.size(); j+=2)
 			{
-				Line l(Vec2f(intersect[j], i), Vec2f(intersect[j+1], i), color);
-				l.Draw();
+				if(j+1<intersect.size())
+				{
+					Line l(Vec2f(intersect[j], i), Vec2f(intersect[j+1], i), color);
+					l.Draw();
+				}
 			}
 		}
 	}
