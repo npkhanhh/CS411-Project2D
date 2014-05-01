@@ -28,5 +28,7 @@ public:
 	float xmin();
 	void equation(float &a, float &b, float &c); // use to return A, B, C
 	double length();
+	int sameSide(Vec2f p1, Vec2f p2); //check if 2 points are on the same side of a line, -1: negative side, 0: intersect, 1 positive side
+	Vec2f intersection(Vec2f p1, Vec2f p2);
 };
 

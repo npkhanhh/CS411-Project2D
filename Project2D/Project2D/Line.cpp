@@ -166,3 +166,27 @@ double Line::length()
 {
 	return sqrt((end.x()-start.x())*((end.x()-start.x()))+(end.y()-start.y())*((end.y()-start.y())));
 }
+
+int Line::sameSide(Vec2f p1, Vec2f p2)
+{
+	if((A*p1[0]+B*p1[1]+C)*(A*p2[0]+B*p2[1]+C)>0)
+		return A*p1[0]+B*p1[1]+C;
+	return 0;
+}
+
+Vec2f Line::intersection(Vec2f p1, Vec2f p2)
+{
+	Vec2f x, d1, d2;
+	Vec2f::Sub(x, p1, start);
+	Vec2f::Sub(d1, end, start);
+	Vec2f::Sub(d2, p2, p1);
+
+    float cross = d1.x*d2.y - d1.y*d2.x;
+  
+
+    double t1 = (x.x * d2.y - x.y * d2.x)/cross;
+	d1*=t1;
+	 Vec2f r;
+	 Vec2f::Add(r, start, d1);
+    return r;
+}
