@@ -22,8 +22,10 @@ Line::~Line()
 
 void Line::Draw(const int &x, const int &y) {
 	
-	start.Set(start.x() + x, start.y() + y);
-	end.Set(end.x() + x, end.y() + y);
+	Vec2f _start(start.x() + x, start.y() + y);
+	Vec2f _end(end.x() + x, end.y() + y);
+	setEndPoints(_start, _end);
+	
 
 	if (start.x() == end.x() && start.y() == end.y()) {
 		// the line segment is just a point

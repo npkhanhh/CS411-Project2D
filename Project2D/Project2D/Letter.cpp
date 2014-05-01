@@ -4,8 +4,8 @@
 
 
 A::A() {
-	color.Set(1, 0, 0);
-	Polygon p;
+	Vec3f color(1, 0, 0);
+	Polygon p(color);
 	p.addEdge(Line(Vec2f(0, 0), Vec2f(30, 100), color));
 	p.addEdge(Line(Vec2f(30, 100), Vec2f(70, 100), color));
 	p.addEdge(Line(Vec2f(70, 100), Vec2f(100, 0), color));
@@ -27,8 +27,8 @@ A::~A() {
 
 B::B(void)
 {
-	color.Set(1, 0, 0);
-	Polygon p;
+	Vec3f color(1, 0, 0);
+	Polygon p(color);
 	p.addEdge(Line(Vec2f(0, 0), Vec2f(0, 100), color));
 	p.addEdge(Line(Vec2f(0, 0), Vec2f(70, 0), color));
 	p.addEdge(Line(Vec2f(0, 100), Vec2f(70, 100), color));
@@ -54,8 +54,8 @@ B::~B(void)
 
 C::C(void)
 {
-	color.Set(1, 0, 0);
-	Polygon p;
+	Vec3f color(1, 0, 0);
+	Polygon p(color);
 	p.addEdge(Line(Vec2f(0, 0), Vec2f(0, 100), color));
 	p.addEdge(Line(Vec2f(0, 0), Vec2f(100, 0), color));
 	p.addEdge(Line(Vec2f(30, 30), Vec2f(30, 70), color));
@@ -74,8 +74,8 @@ C::~C(void)
 
 D::D(void)
 {
-	color.Set(1, 0, 0);
-	Polygon p;
+	Vec3f color(1, 0, 0);
+	Polygon p(color);
 	p.addEdge(Line(Vec2f(0, 0), Vec2f(0, 100), color));
 	p.addEdge(Line(Vec2f(0, 0), Vec2f(70, 0), color));
 	p.addEdge(Line(Vec2f(0, 100), Vec2f(70, 100), color));
@@ -97,8 +97,8 @@ D::~D(void)
 
 E::E(void)
 {
-	color.Set(1, 0, 0);
-	Polygon p;
+	Vec3f color(1, 0, 0);
+	Polygon p(color);
 	p.addEdge(Line(Vec2f(0, 0), Vec2f(0, 100), color));
 	p.addEdge(Line(Vec2f(0, 100), Vec2f(100, 100), color));
 	p.addEdge(Line(Vec2f(100, 100), Vec2f(100, 80), color));
@@ -121,8 +121,8 @@ E::~E(void)
 
 F::F(void)
 {
-	color.Set(1, 0, 0);
-	Polygon p;
+	Vec3f color(1, 0, 0);
+	Polygon p(color);
 	p.addEdge(Line(Vec2f(0, 0), Vec2f(0, 100), color));
 	p.addEdge(Line(Vec2f(0, 100), Vec2f(100, 100), color));
 	p.addEdge(Line(Vec2f(100, 100), Vec2f(100, 80), color));
@@ -143,8 +143,8 @@ F::~F(void)
 
 G::G(void)
 {
-	color.Set(1, 0, 0);
-	Polygon p;
+	Vec3f color(1, 0, 0);
+	Polygon p(color);
 	p.addEdge(Line(Vec2f(0, 0), Vec2f(0, 100), color));
 	p.addEdge(Line(Vec2f(0, 100), Vec2f(100, 100), color));
 	p.addEdge(Line(Vec2f(100, 100), Vec2f(100, 80), color));
@@ -167,8 +167,8 @@ G::~G(void)
 
 H::H(void)
 {
-	color.Set(1, 0, 0);
-	Polygon p;
+	Vec3f color(1, 0, 0);
+	Polygon p(color);
 	p.addEdge(Line(Vec2f(0, 0), Vec2f(0, 100), color));
 	p.addEdge(Line(Vec2f(0, 100), Vec2f(30, 100), color));
 	p.addEdge(Line(Vec2f(30, 100), Vec2f(30, 65), color));
@@ -191,8 +191,8 @@ H::~H(void)
 
 I::I(void)
 {
-	color.Set(1, 0, 0);
-	Polygon p;
+	Vec3f color(1, 0, 0);
+	Polygon p(color);
 	p.addEdge(Line(Vec2f(0, 0), Vec2f(0, 100), color));
 	p.addEdge(Line(Vec2f(0, 100), Vec2f(40, 100), color));
 	p.addEdge(Line(Vec2f(40, 100), Vec2f(40, 0), color));
@@ -208,8 +208,8 @@ I::~I(void)
 
 J::J(void)
 {
-	color.Set(1, 0, 0);
-	Polygon p;
+	Vec3f color(1, 0, 0);
+	Polygon p(color);
 	p.addEdge(Line(Vec2f(0, 0), Vec2f(0, 20), color));
 	p.addEdge(Line(Vec2f(0, 20), Vec2f(20, 20), color));
 	p.addEdge(Line(Vec2f(20, 20), Vec2f(20, 70), color));
@@ -230,8 +230,8 @@ J::~J(void)
 
 K::K(void)
 {
-	color.Set(1, 0, 0);
-	Polygon p;
+	Vec3f color(1, 0, 0);
+	Polygon p(color);
 	p.addEdge(Line(Vec2f(0, 0), Vec2f(0, 100), color));
 	p.addEdge(Line(Vec2f(0, 100), Vec2f(30, 100), color));
 	p.addEdge(Line(Vec2f(30, 100), Vec2f(30, 60), color));
@@ -254,8 +254,8 @@ K::~K(void)
 
 L::L(void)
 {
-	color.Set(1, 0, 0);
-	Polygon p;
+	Vec3f color(1, 0, 0);
+	Polygon p(color);
 	p.addEdge(Line(Vec2f(0, 0), Vec2f(0, 100), color));
 	p.addEdge(Line(Vec2f(0, 100), Vec2f(30, 100), color));
 	p.addEdge(Line(Vec2f(30, 100), Vec2f(30, 30), color));
@@ -272,8 +272,8 @@ L::~L(void)
 
 M::M(void)
 {
-	color.Set(1, 0, 0);
-	Polygon p;
+	Vec3f color(1, 0, 0);
+	Polygon p(color);
 	p.addEdge(Line(Vec2f(0, 0), Vec2f(0, 100), color));
 	p.addEdge(Line(Vec2f(0, 100), Vec2f(30, 100), color));
 	p.addEdge(Line(Vec2f(30, 100), Vec2f(50, 60), color));
@@ -296,8 +296,8 @@ M::~M(void)
 
 N::N(void)
 {
-	color.Set(1, 0, 0);
-	Polygon p;
+	Vec3f color(1, 0, 0);
+	Polygon p(color);
 	p.addEdge(Line(Vec2f(0, 0), Vec2f(0, 100), color));
 	p.addEdge(Line(Vec2f(0, 100), Vec2f(30, 100), color));
 	p.addEdge(Line(Vec2f(30, 100), Vec2f(70, 60), color));
@@ -318,8 +318,8 @@ N::~N(void)
 
 O::O(void)
 {
-	color.Set(1, 0, 0);
-	Polygon p;
+	Vec3f color(1, 0, 0);
+	Polygon p(color);
 	p.addEdge(Line(Vec2f(0, 0), Vec2f(0, 100), color));
 	p.addEdge(Line(Vec2f(0, 100), Vec2f(100, 100), color));
 	p.addEdge(Line(Vec2f(100, 100), Vec2f(100, 0), color));
@@ -339,8 +339,8 @@ O::~O(void)
 
 P::P(void)
 {
-	color.Set(1, 0, 0);
-	Polygon p;
+	Vec3f color(1, 0, 0);
+	Polygon p(color);
 	p.addEdge(Line(Vec2f(0, 0), Vec2f(0, 100), color));
 	p.addEdge(Line(Vec2f(0, 100), Vec2f(100, 100), color));
 	p.addEdge(Line(Vec2f(100, 100), Vec2f(100, 40), color));
@@ -361,8 +361,8 @@ P::~P(void)
 
 Q::Q(void)
 {
-	color.Set(1, 0, 0);
-	Polygon p;
+	Vec3f color(1, 0, 0);
+	Polygon p(color);
 	p.addEdge(Line(Vec2f(0, 0), Vec2f(0, 100), color));
 	p.addEdge(Line(Vec2f(0, 100), Vec2f(80, 100), color));
 	p.addEdge(Line(Vec2f(80, 100), Vec2f(80, 20), color));
@@ -383,8 +383,8 @@ Q::~Q(void)
 
 R::R(void)
 {
-	color.Set(1, 0, 0);
-	Polygon p;
+	Vec3f color(1, 0, 0);
+	Polygon p(color);
 	p.addEdge(Line(Vec2f(0, 0), Vec2f(0, 100), color));
 	p.addEdge(Line(Vec2f(0, 100), Vec2f(100, 100), color));
 	p.addEdge(Line(Vec2f(100, 100), Vec2f(100, 70), color));
@@ -408,8 +408,8 @@ R::~R(void)
 
 S::S(void)
 {
-	color.Set(1, 0, 0);
-	Polygon p;
+	Vec3f color(1, 0, 0);
+	Polygon p(color);
 	p.addEdge(Line(Vec2f(0, 0), Vec2f(0, 20), color));
 	p.addEdge(Line(Vec2f(0, 20), Vec2f(70, 20), color));
 	p.addEdge(Line(Vec2f(70, 20), Vec2f(70, 40), color));
@@ -432,8 +432,8 @@ S::~S(void)
 
 T::T(void)
 {
-	color.Set(1, 0, 0);
-	Polygon p;
+	Vec3f color(1, 0, 0);
+	Polygon p(color);
 	p.addEdge(Line(Vec2f(35, 0), Vec2f(35, 70), color));
 	p.addEdge(Line(Vec2f(35, 70), Vec2f(0, 70), color));
 	p.addEdge(Line(Vec2f(0, 70), Vec2f(0, 100), color));
@@ -452,8 +452,8 @@ T::~T(void)
 
 U::U(void)
 {
-	color.Set(1, 0, 0);
-	Polygon p;
+	Vec3f color(1, 0, 0);
+	Polygon p(color);
 	p.addEdge(Line(Vec2f(0, 0), Vec2f(0, 100), color));
 	p.addEdge(Line(Vec2f(0, 100), Vec2f(30, 100), color));
 	p.addEdge(Line(Vec2f(30, 100), Vec2f(30, 30), color));
@@ -472,8 +472,8 @@ U::~U(void)
 
 V::V(void)
 {
-	color.Set(1, 0, 0);
-	Polygon p;
+	Vec3f color(1, 0, 0);
+	Polygon p(color);
 	p.addEdge(Line(Vec2f(30, 0), Vec2f(0, 100), color));
 	p.addEdge(Line(Vec2f(0, 100), Vec2f(30, 100), color));
 	p.addEdge(Line(Vec2f(30, 100), Vec2f(50, 40), color));
@@ -491,8 +491,8 @@ V::~V(void)
 
 W::W(void)
 {
-	color.Set(1, 0, 0);
-	Polygon p;
+	Vec3f color(1, 0, 0);
+	Polygon p(color);
 	p.addEdge(Line(Vec2f(0, 0), Vec2f(0, 100), color));
 	p.addEdge(Line(Vec2f(0, 100), Vec2f(20, 100), color));
 	p.addEdge(Line(Vec2f(20, 100), Vec2f(20, 30), color));
@@ -515,8 +515,8 @@ W::~W(void)
 
 X::X(void)
 {
-	color.Set(1, 0, 0);
-	Polygon p;
+	Vec3f color(1, 0, 0);
+	Polygon p(color);
 	p.addEdge(Line(Vec2f(0, 0), Vec2f(0, 30), color));
 	p.addEdge(Line(Vec2f(0, 30), Vec2f(30, 50), color));
 	p.addEdge(Line(Vec2f(30, 50), Vec2f(0, 70), color));
@@ -543,8 +543,8 @@ X::~X(void)
 
 Y::Y(void)
 {
-	color.Set(1, 0, 0);
-	Polygon p;
+	Vec3f color(1, 0, 0);
+	Polygon p(color);
 	p.addEdge(Line(Vec2f(30, 0), Vec2f(30, 50), color));
 	p.addEdge(Line(Vec2f(30, 50), Vec2f(0, 70), color));
 	p.addEdge(Line(Vec2f(0, 70), Vec2f(0, 100), color));
@@ -566,8 +566,8 @@ Y::~Y(void)
 
 Z::Z(void)
 {
-	color.Set(1, 0, 0);
-	Polygon p;
+	Vec3f color(1, 0, 0);
+	Polygon p(color);
 	p.addEdge(Line(Vec2f(0, 0), Vec2f(0, 30), color));
 	p.addEdge(Line(Vec2f(0, 30), Vec2f(40, 70), color));
 	p.addEdge(Line(Vec2f(40, 70), Vec2f(0, 70), color));

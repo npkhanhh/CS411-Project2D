@@ -75,8 +75,8 @@ void RenderScene(void) {
 	}*/
 
 	F a;
-	a.Draw(0, 0);
-	//a.fillColor();
+	a.Draw(10, 10);
+	a.fillColor();
 }
 
 void SetupRC(void) {
