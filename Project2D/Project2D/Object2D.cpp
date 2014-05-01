@@ -12,6 +12,10 @@ void Object2D::Draw(const int &x, const int &y) {
 	}
 }
 
+void Object2D::Draw() {
+	this->Draw(0, 0);
+}
+
 void Object2D::fillColor()
 {
 	for(int i=0;i<polygons.size();++i)
