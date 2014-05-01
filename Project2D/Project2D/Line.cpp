@@ -30,6 +30,7 @@ void Line::Draw(const int &x, const int &y) {
 	if (start.x() == end.x() && start.y() == end.y()) {
 		// the line segment is just a point
 		setPixel(end.x(), end.y(), colorField);
+		glutSwapBuffers();
 		return;
 	}
 
@@ -73,6 +74,12 @@ void Line::Draw(const int &x, const int &y) {
 		else
 			setPixel(x1, y1, colorField);
 	}
+
+	glutSwapBuffers();
+}
+
+void Line::Draw() {
+	this->Draw(0, 0);
 }
 
 void Line::SetColor(Vec3f _color) {

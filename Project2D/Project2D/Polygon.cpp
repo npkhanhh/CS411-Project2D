@@ -20,6 +20,10 @@ void Polygon::Draw(const int &x, const int &y) {
 	}
 }
 
+void Polygon::Draw() {
+	this->Draw(0, 0);
+}
+
 void Polygon::addEdge(Vec2f &start, Vec2f &end) {
 	v.push_back(Line(start, end));
 }
