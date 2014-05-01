@@ -20,6 +20,14 @@ void Object2D::fillColor()
 	}
 }
 
+void Object2D::Cut(int pieces)
+{
+	for(int i =0;i<pieces;++i)
+	{
+		
+	}
+}
+
 Object2D::~Object2D(void)
 {
 }

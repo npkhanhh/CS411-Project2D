@@ -154,3 +154,8 @@ void Line::equation(float &a, float &b, float &c)
 	b = B;
 	c = C;
 }
+
+double Line::length()
+{
+	return sqrt((end.x()-start.x())*((end.x()-start.x()))+(end.y()-start.y())*((end.y()-start.y())));
+}

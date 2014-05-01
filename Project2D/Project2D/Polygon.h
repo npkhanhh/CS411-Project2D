@@ -15,5 +15,6 @@ public:
 	void addEdge(Vec2f &start, Vec2f &end);
 	void addEdge(Line &line);
 	void Draw(const int &x, const int &y);
+	double Perimeter();
 };
 

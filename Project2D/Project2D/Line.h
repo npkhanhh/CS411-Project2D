@@ -26,5 +26,6 @@ public:
 	float xmax();
 	float xmin();
 	void equation(float &a, float &b, float &c); // use to return A, B, C
+	double length();
 };
 

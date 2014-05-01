@@ -70,3 +70,11 @@ void Polygon::fillColor()
 		}
 	}
 }
+
+double Polygon::Perimeter()
+{
+	double per = 0;
+	for(int i = 0;i<v.size();++i)
+		per += v[i].length();
+	return per;
+}
