@@ -181,10 +181,10 @@ Vec2f Line::intersection(Vec2f p1, Vec2f p2)
 	Vec2f::Sub(d1, end, start);
 	Vec2f::Sub(d2, p2, p1);
 
-    float cross = d1.x*d2.y - d1.y*d2.x;
+    float cross = d1.x()*d2.y() - d1.y()*d2.x();
   
 
-    double t1 = (x.x * d2.y - x.y * d2.x)/cross;
+    double t1 = (x.x() * d2.y() - x.y() * d2.x())/cross;
 	d1*=t1;
 	 Vec2f r;
 	 Vec2f::Add(r, start, d1);
