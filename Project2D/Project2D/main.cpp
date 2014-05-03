@@ -52,8 +52,8 @@ int main(int argc, char* argv[]) {
 	glutInitWindowSize(wWidth, wHeight);
 	glutCreateWindow("2D game 1151019-1151020");
 
-	glutDisplayFunc(RenderScene);
 	SetupRC();
+	glutDisplayFunc(RenderScene);
 
 	// Register callback functions for mouse control
 	glutMouseFunc(MouseClick);
@@ -83,28 +83,32 @@ void RenderScene(void) {
 	glEnd();
 	glFlush();
 
-
 	// render the whole word
 	// if this is the first time the word is rendered, 
 	// set up the offset that that word will be translated
 	if (firstRender) {
 		int xi = -90, yi = 100;
 		for (int i = 0; i < letters.size(); ++i) {
-			xi = xi + 100;
+			xi = xi + 110;
 			letters[i].Draw(xi, yi);
+			//letters[i].fillColor();
 		}
 		firstRender = false;
 	}
 	else {
 		for (int i = 0; i < letters.size(); ++i) {
 			letters[i].Draw();
+			//letters[i].fillColor();
 		}
 	}
+
+	globalLine.Draw(0, 0);
+
 	glutSwapBuffers();
 }
 
 void SetupRC(void) {
-	glClearColor(0.5, 0.5, 0.5, 1);
+	glClearColor(0, 0, 0, 1);
 }
 
 
@@ -121,7 +125,7 @@ void MouseClick(int iButton, int iState, int x, int y) {
 			x_2 = x;
 			y_2 = wHeight - y;
 			globalLine.setEndPoints(Vec2f(x_1, y_1), Vec2f(x_2, y_2));
-			globalLine.Draw(0, 0);
+			glutPostRedisplay();
 		}
 		
 	}
@@ -131,8 +135,8 @@ void MouseMotionFunction(int x, int y) {
 	x_2 = x;
 	y_2 = wHeight - y;
 	globalLine.setEndPoints(Vec2f(x_1, y_1), Vec2f(x_2, y_2));
-	RenderScene();
-	globalLine.Draw(0, 0);
+
+	glutPostRedisplay();
 }
 
 

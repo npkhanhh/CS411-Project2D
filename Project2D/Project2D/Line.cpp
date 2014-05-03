@@ -30,7 +30,7 @@ void Line::Draw(const int &x, const int &y) {
 	if (start.x() == end.x() && start.y() == end.y()) {
 		// the line segment is just a point
 		setPixel(end.x(), end.y(), colorField);
-		glutSwapBuffers();
+		glutPostRedisplay();
 		return;
 	}
 
@@ -74,8 +74,6 @@ void Line::Draw(const int &x, const int &y) {
 		else
 			setPixel(x1, y1, colorField);
 	}
-
-	glutSwapBuffers();
 }
 
 void Line::Draw() {
@@ -106,6 +104,7 @@ void Line::setPixel(const float &x, const float &y, const Vec3f &color) {
 	glEnd();
 
 	glFlush();
+	glutPostRedisplay();
 }
 
 
