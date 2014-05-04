@@ -109,7 +109,7 @@ void Line::setPixel(const float &x, const float &y, const Vec3f &color) {
 	color.Get(red, green, blue);
 	glColor3f(red, green, blue);
 
-	glPointSize(1);
+	glPointSize(0.5);
 	glBegin(GL_POINTS);
 		glVertex2i(x, y);
 	glEnd();

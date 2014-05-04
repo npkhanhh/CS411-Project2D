@@ -29,11 +29,11 @@ string dictionary[SIZE_OF_DICTIONARY] = {
 
 
 
-int wWidth = 1600;	// width of window
-int wHeight = 900;	// height of window
+int wWidth = 1500;	// width of window
+int wHeight = 800;	// height of window
 
+void InitSetup();
 void RenderScene(void);
-void SetupRC(void);
 void MouseClick(int iButton, int iState, int x, int y);	// Callback function triggered when mouse button is actived
 void MouseMotionFunction(int x, int y);					// Callback function triggered when mouse moves when one mouse button is pressed
 void MousePassiveMotionFunction(int x, int y);			// Callback function triggered when mouse moves when no mouse button is pressed
@@ -54,12 +54,14 @@ int main(int argc, char* argv[]) {
 		c = NULL;
 	}
 
+
+	// openGL initiallization
 	glutInit(&argc, argv);
-	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
+	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH);
 	glutInitWindowSize(wWidth, wHeight);
 	glutCreateWindow("2D game 1151019-1151020");
+	InitSetup();
 
-	SetupRC();
 	glutDisplayFunc(RenderScene);
 
 	// Register callback functions for mouse control
@@ -73,17 +75,28 @@ int main(int argc, char* argv[]) {
 	return 0;
 }
 
+void InitSetup() {
+	glClearColor(0.0, 0.0, 0.0, 1.0);
+	// Smooth out lines
+	//glEnable(GL_LINE_SMOOTH);
+	glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
+	glEnable(GL_BLEND);
 
-void RenderScene(void) {
-	glClear(GL_COLOR_BUFFER_BIT);
-	glColor3f(1, 1, 1);	// white background
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	glOrtho(0, wWidth, 0, wHeight, 0, 1);
+	gluOrtho2D(0, wWidth, 0, wHeight);
 	glMatrixMode(GL_MODELVIEW);
+}
 
+
+void RenderScene(void) {
+	glClearColor(1, 1, 1, 0);
+	glClear(GL_COLOR_BUFFER_BIT);
+	
 	// Render background
+	glColor3f(1, 1, 1);	// white background
 	glBegin(GL_POLYGON);
 		glVertex2f(0, 0);
 		glVertex2f(wWidth, 0);
@@ -159,10 +172,6 @@ void RenderScene(void) {
 	}
 	
 	glutSwapBuffers();
-}
-
-void SetupRC(void) {
-	glClearColor(0, 0, 0, 1);
 }
 
 
