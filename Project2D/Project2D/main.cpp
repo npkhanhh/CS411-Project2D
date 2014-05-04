@@ -2,6 +2,7 @@
 #include "Letter.h"
 #include <time.h>		/* time */
 #include <stdlib.h>		/* srand, rand */
+#include <string>
 
 
 // Global vars
@@ -11,6 +12,11 @@ Line globalLine;
 const int SIZE_OF_DICTIONARY = 5;
 vector<Object2D> letters;		// the letters in the word
 bool firstRender = true;
+
+// vars to tracking mouse activities
+bool clickedOnObject = false;
+bool isPressing;	// true if left mouse button is clicked
+int xMouse, yMouse;	// position of the mouse
 
 // Dictionary
 string dictionary[SIZE_OF_DICTIONARY] = { 
@@ -30,14 +36,16 @@ void RenderScene(void);
 void SetupRC(void);
 void MouseClick(int iButton, int iState, int x, int y);	// Callback function triggered when mouse button is actived
 void MouseMotionFunction(int x, int y);					// Callback function triggered when mouse moves when one mouse button is pressed
+void MousePassiveMotionFunction(int x, int y);			// Callback function triggered when mouse moves when no mouse button is pressed
 
 Object2D *getLetter(char &c);
 
 int main(int argc, char* argv[]) {
 	// Choose a word randomly from databse
+	srand(time(NULL));
 	int index = rand() % SIZE_OF_DICTIONARY;
 	string word = dictionary[index];
-	Object2D *c;
+	Object2D *c = NULL;
 	letters;
 	for (int i = 0; i < word.length(); ++i) {
 		c = getLetter(word[i]);
@@ -45,7 +53,6 @@ int main(int argc, char* argv[]) {
 		delete c;
 		c = NULL;
 	}
-
 
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
@@ -58,6 +65,7 @@ int main(int argc, char* argv[]) {
 	// Register callback functions for mouse control
 	glutMouseFunc(MouseClick);
 	glutMotionFunc(MouseMotionFunction);
+	glutPassiveMotionFunc(MousePassiveMotionFunction);
 	glutMainLoop();
 
 	
@@ -75,6 +83,7 @@ void RenderScene(void) {
 	glOrtho(0, wWidth, 0, wHeight, 0, 1);
 	glMatrixMode(GL_MODELVIEW);
 
+	// Render background
 	glBegin(GL_POLYGON);
 		glVertex2f(0, 0);
 		glVertex2f(wWidth, 0);
@@ -91,19 +100,64 @@ void RenderScene(void) {
 		for (int i = 0; i < letters.size(); ++i) {
 			xi = xi + 110;
 			letters[i].Draw(xi, yi);
-			//letters[i].fillColor();
+			letters[i].fillColor();
 		}
 		firstRender = false;
 	}
 	else {
 		for (int i = 0; i < letters.size(); ++i) {
 			letters[i].Draw();
-			//letters[i].fillColor();
+			letters[i].fillColor();
 		}
 	}
 
+	// Render global line
 	globalLine.Draw(0, 0);
 
+
+	// Render the signal rectangle, green if clicked on object, red if not
+	if (clickedOnObject) {
+		glColor3f(0, 1, 0);
+		glBegin(GL_POLYGON);
+			glVertex2f(0, 0);
+			glVertex2f(100, 0);
+			glVertex2f(100, 100);
+			glVertex2f(0, 100);
+		glEnd();
+		glFlush();
+		glutPostRedisplay();
+	}
+	else {
+		glColor3f(1, 0, 0);
+		glBegin(GL_POLYGON);
+			glVertex2f(0, 0);
+			glVertex2f(100, 0);
+			glVertex2f(100, 100);
+			glVertex2f(0, 100);
+		glEnd();
+		glFlush();
+		glutPostRedisplay();
+	}
+
+	// Render the coordinate of the mouse
+	int cur = 0;
+	if (isPressing)
+		glColor3f(1, 0, 0);
+	else
+		glColor3f(0, 0, 0);
+
+	string xMouseStr = std::to_string(xMouse);
+	string yMouseStr = std::to_string(yMouse);
+
+	glRasterPos2d(wWidth - 150, wHeight - 150);
+	for (int i = 0; i < xMouseStr.size(); ++i) {
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_10, xMouseStr[i]);
+	}
+	glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_10, ';');
+	for (int i = 0; i < yMouseStr.size(); ++i) {
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_10, yMouseStr[i]);
+	}
+	
 	glutSwapBuffers();
 }
 
@@ -119,11 +173,24 @@ void MouseClick(int iButton, int iState, int x, int y) {
 			// if left button is clicked
 			x_1 = x;
 			y_1 = wHeight - y;
+			xMouse = x;
+			yMouse = y;
+			isPressing = true;
+			clickedOnObject = false;
+			for (int i = 0; i < letters.size(); ++i) {
+				if (letters[i].isInside(x, wHeight - y)) {
+					clickedOnObject = true;
+					break;
+				}
+			}
 		}
 		else if (iState == GLUT_UP) {
 			// if left button is released
 			x_2 = x;
 			y_2 = wHeight - y;
+			xMouse = x;
+			yMouse = y;
+			isPressing = false;
 			globalLine.setEndPoints(Vec2f(x_1, y_1), Vec2f(x_2, y_2));
 			glutPostRedisplay();
 		}
@@ -134,8 +201,17 @@ void MouseClick(int iButton, int iState, int x, int y) {
 void MouseMotionFunction(int x, int y) {
 	x_2 = x;
 	y_2 = wHeight - y;
+
+	xMouse = x;
+	yMouse = y;
 	globalLine.setEndPoints(Vec2f(x_1, y_1), Vec2f(x_2, y_2));
 
+	glutPostRedisplay();
+}
+
+void MousePassiveMotionFunction(int x, int y) {
+	xMouse = x;
+	yMouse = y;
 	glutPostRedisplay();
 }
 

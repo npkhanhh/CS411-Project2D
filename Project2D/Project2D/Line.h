@@ -20,6 +20,7 @@ public:
 
 	void Draw(const int &x, const int &y);
 	void Draw();
+	void DrawGL();
 	void SetColor(Vec3f _color);
 	void setEndPoints(const Vec2f &_start, const Vec2f &_end);
 	float ymax();

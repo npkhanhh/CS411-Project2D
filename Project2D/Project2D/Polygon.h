@@ -7,15 +7,20 @@ class Polygon
 {
 	vector<Line> v;
 	Vec3f color;
+	int xmax, xmin, ymax, ymin;
 public:
 	Polygon(void);
 	Polygon(Vec3f color);
 	~Polygon(void);
+
 	void fillColor();
 	void addEdge(Vec2f &start, Vec2f &end);
 	void addEdge(Line &line);
 	void Draw(const int &x, const int &y);
 	double Perimeter();
 	void Draw();
+
+	bool isInside(const int &x, const int &y);
+	void updateLimits();
 };
 

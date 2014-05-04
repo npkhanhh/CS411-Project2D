@@ -35,3 +35,13 @@ void Object2D::Cut(int pieces)
 Object2D::~Object2D(void)
 {
 }
+
+
+bool Object2D::isInside(const int &x, const int &y) {
+	for (int i = 0; i < polygons.size(); ++i) {
+		if (polygons[i].isInside(x, y))
+			return true;
+	}
+
+	return false;
+}

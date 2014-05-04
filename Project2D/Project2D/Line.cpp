@@ -80,6 +80,17 @@ void Line::Draw() {
 	this->Draw(0, 0);
 }
 
+void Line::DrawGL() {
+	glColor3f(colorField.x(), colorField.y(), colorField.z());
+	glBegin(GL_LINES);
+		glVertex2i(start.x(), start.y());
+		glVertex2i(end.x(), end.y());
+	glEnd();
+
+	glFlush();
+	glutPostRedisplay();
+}
+
 void Line::SetColor(Vec3f _color) {
 	//this->colorField = _color;
 }

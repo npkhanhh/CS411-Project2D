@@ -15,5 +15,7 @@ public:
 	void Cut(int pieces);
 	void Draw();
 	~Object2D(void);
+
+	bool isInside(const int &x, const int &y);
 };
 
