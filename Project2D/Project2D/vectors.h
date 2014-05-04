@@ -89,6 +89,15 @@ public:
     data[0] /= f;
     data[1] /= f;
     return *this; }
+
+  bool operator<(const Vec2f &V2)
+  {
+	  if(data[0]<V2.data[0])
+		  return true;
+	  if(data[0] == V2.data[0] && data[1]<V2.data[1])
+		  return true;
+	  return false;
+  }
   
   // OPERATIONS
   float Dot2(const Vec2f &V) const {
@@ -117,6 +126,8 @@ public:
   // INPUT / OUTPUT
   void Write(FILE *F = stdout) {
     fprintf (F, "%f %f\n",data[0],data[1]); }
+
+  
 
 private:
 

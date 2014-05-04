@@ -21,13 +21,13 @@
     <ClInclude Include="Line.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="vectors.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Polygon.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Object2D.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="vectors.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

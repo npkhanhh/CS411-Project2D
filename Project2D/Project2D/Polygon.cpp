@@ -23,8 +23,14 @@ Polygon::~Polygon(void)
 }
 
 void Polygon::Draw(const int &x, const int &y) {
+	int _x = x, _y = y;
+	if(x==-1 && y == -1)
+	{
+		_x = rand() % 1200 + 100; //100->1299
+		_y = rand() % 600 + 100;  //100->699
+	}
 	for (int i = 0; i < v.size(); ++i) {
-		v[i].Draw(x, y);
+		v[i].Draw(_x, _y);
 	}
 	updateLimits();
 }
@@ -139,4 +145,34 @@ void Polygon::updateLimits() {
 		ymax = ymax > v[i].ymax() ? ymax : v[i].ymax();
 		ymin = ymin < v[i].ymin() ? ymin : v[i].ymin();
 	}
+}
+
+int Polygon::xMax()
+{
+	return xmax;
+}
+
+int Polygon::yMax()
+{
+	return ymax;
+}
+
+int Polygon::xMin()
+{
+	return xmin;
+}
+
+int Polygon::yMin()
+{
+	return ymin;
+}
+
+vector<Line> Polygon::getLines()
+{
+	return v;
+}
+
+Vec3f Polygon::getColor()
+{
+	return color;
 }

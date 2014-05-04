@@ -5,6 +5,8 @@ using namespace std;
 
 class Object2D
 {
+private:
+	const static int MININUM_PERIMETER = 10;  //Define the minimum perimeter for a cut
 protected:
 	vector<Polygon> polygons;
 	

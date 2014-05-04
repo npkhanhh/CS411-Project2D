@@ -44,7 +44,7 @@ int main(int argc, char* argv[]) {
 	// Choose a word randomly from databse
 	srand(time(NULL));
 	int index = rand() % SIZE_OF_DICTIONARY;
-	string word = dictionary[index];
+	string word = "a"; //dictionary[index];
 	Object2D *c = NULL;
 	letters;
 	for (int i = 0; i < word.length(); ++i) {
@@ -201,6 +201,12 @@ void MouseClick(int iButton, int iState, int x, int y) {
 			yMouse = y;
 			isPressing = false;
 			globalLine.setEndPoints(Vec2f(x_1, y_1), Vec2f(x_2, y_2));
+			
+			for(int i = 0;i<letters.size();++i)
+			{
+				letters[i].Cut(2);
+				letters[i].Draw(-1, -1);
+			}
 			glutPostRedisplay();
 		}
 		

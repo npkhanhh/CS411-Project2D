@@ -19,8 +19,13 @@ public:
 	void Draw(const int &x, const int &y);
 	double Perimeter();
 	void Draw();
-
+	int xMax();
+	int xMin();
+	int yMax();
+	int yMin();
+	vector<Line> getLines();
 	bool isInside(const int &x, const int &y);
 	void updateLimits();
+	Vec3f getColor();
 };
 

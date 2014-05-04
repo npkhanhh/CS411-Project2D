@@ -22,6 +22,7 @@ Line::~Line()
 
 void Line::Draw(const int &x, const int &y) {
 	
+	
 	Vec2f _start(start.x() + x, start.y() + y);
 	Vec2f _end(end.x() + x, end.y() + y);
 	setEndPoints(_start, _end);
@@ -92,7 +93,7 @@ void Line::DrawGL() {
 }
 
 void Line::SetColor(Vec3f _color) {
-	//this->colorField = _color;
+	this->colorField = _color;
 }
 
 
@@ -177,26 +178,32 @@ double Line::length()
 	return sqrt((end.x()-start.x())*((end.x()-start.x()))+(end.y()-start.y())*((end.y()-start.y())));
 }
 
-int Line::sameSide(Vec2f p1, Vec2f p2)
+int Line::checkSide(Vec2f point)
 {
-	if((A*p1[0]+B*p1[1]+C)*(A*p2[0]+B*p2[1]+C)>0)
-		return A*p1[0]+B*p1[1]+C;
-	return 0;
+	if(A*point[0]+B*point[1]+C>0)
+		return 1;
+	return -1;
 }
 
-Vec2f Line::intersection(Vec2f p1, Vec2f p2)
+Vec2f Line::intersection(Line l)
 {
-	Vec2f x, d1, d2;
-	Vec2f::Sub(x, p1, start);
-	Vec2f::Sub(d1, end, start);
-	Vec2f::Sub(d2, p2, p1);
+	float nu = A*l.C-l.A*C;
+	float de = l.A*B-A*l.B;
+	float intery = (float)nu/de;
+	float interx = (-(B*intery + C))/A;
 
-    float cross = d1.x()*d2.y() - d1.y()*d2.x();
-  
+	Vec2f r(interx, intery);
 
-    double t1 = (x.x() * d2.y() - x.y() * d2.x())/cross;
-	d1*=t1;
-	 Vec2f r;
-	 Vec2f::Add(r, start, d1);
-    return r;
+	return r;
+
+}
+
+Vec2f Line::Start()
+{
+	return start;
+}
+
+Vec2f Line::End()
+{
+	return end;
 }
