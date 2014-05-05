@@ -12,6 +12,7 @@ Line globalLine;
 const int SIZE_OF_DICTIONARY = 5;
 vector<Object2D> letters;		// the letters in the word
 bool firstRender = true;
+Object2D *clickedObject = NULL;
 
 // vars to tracking mouse activities
 bool clickedOnObject = false;
@@ -189,6 +190,8 @@ void MouseClick(int iButton, int iState, int x, int y) {
 			for (int i = 0; i < letters.size(); ++i) {
 				if (letters[i].isInside(x, wHeight - y)) {
 					clickedOnObject = true;
+					clickedObject = &letters[i];
+					clickedObject->setClicked(x, wHeight - y);
 					break;
 				}
 			}
@@ -202,10 +205,17 @@ void MouseClick(int iButton, int iState, int x, int y) {
 			isPressing = false;
 			globalLine.setEndPoints(Vec2f(x_1, y_1), Vec2f(x_2, y_2));
 			
-			for(int i = 0;i<letters.size();++i)
+			// disable cut to test dragging object
+			/*for(int i = 0;i<letters.size();++i)
 			{
 				letters[i].Cut(2);
 				letters[i].Draw(-1, -1);
+			}*/
+
+			if (clickedObject) {
+				// if there was an objected that was clicked, release it
+				clickedObject->setReleased();
+				clickedObject = NULL;
 			}
 			glutPostRedisplay();
 		}
@@ -220,6 +230,12 @@ void MouseMotionFunction(int x, int y) {
 	xMouse = x;
 	yMouse = y;
 	globalLine.setEndPoints(Vec2f(x_1, y_1), Vec2f(x_2, y_2));
+
+	if (clickedObject) {
+		// if user clicked on some object, then drag it
+		clickedObject->moveClickedPolygon(x, y_2);
+		clickedObject->Draw();
+	}
 
 	glutPostRedisplay();
 }

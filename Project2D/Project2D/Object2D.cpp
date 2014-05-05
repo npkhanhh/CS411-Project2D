@@ -116,6 +116,7 @@ void Object2D::Cut(int pieces)
 
 Object2D::~Object2D(void)
 {
+	clickedPolygon = NULL;
 }
 
 
@@ -126,4 +127,32 @@ bool Object2D::isInside(const int &x, const int &y) {
 	}
 
 	return false;
+}
+
+bool Object2D::setClicked(const int &x, const int &y) {
+	for (int i = 0; i < polygons.size(); ++i) {
+		if (polygons[i].isInside(x, y)) {
+			clickedPolygon = &polygons[i];
+			clickedPolygon->setClicked(x, y);
+			isClicked = true;				// mark that this object is clicked
+			return true;
+		}
+	}
+	isClicked = false;
+	return false;
+}
+
+void Object2D::setReleased() {
+	if (this->isClicked) {
+		clickedPolygon->setRelease();
+		this->isClicked = false;
+		clickedPolygon = NULL;
+		return;
+	}
+}
+
+void Object2D::moveClickedPolygon(const int &x, const int &y) {
+	if (clickedPolygon) {
+		clickedPolygon->clickMove(x, y);
+	}
 }

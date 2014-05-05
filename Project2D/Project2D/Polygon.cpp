@@ -176,3 +176,47 @@ Vec3f Polygon::getColor()
 {
 	return color;
 }
+
+bool Polygon::setClicked(const int &x, const int &y) {
+	if (isInside(x, y)) {
+		this->clicked = true;
+		xClick = x;
+		yClick = y;
+		xOffset = this->xmax - x;
+		yOffset = this->ymax - y;
+		return true;
+	}
+	this->clicked = false;
+	return false;
+}
+
+bool Polygon::isClicked() {
+	return this->clicked;
+}
+
+void Polygon::setRelease() {
+	if (this->clicked) {
+		clicked = false;
+		xClick = -1;
+		yClick = -1;
+		xOffset = 0;
+		yOffset = 0;
+	}
+}
+
+void Polygon::clickMove(const int &x, const int &y) {
+	int Dx = x - xClick; // x displacement
+	int Dy = y - yClick; // y displacement
+
+	xClick = x;
+	yClick = y;
+
+	for (int i = 0; i < v.size(); ++i) {
+		// shift all the edges
+		v[i].setEndPoints(Vec2f(v[i].Start().x() + Dx, v[i].Start().y() + Dy), Vec2f(v[i].End().x() + Dx, v[i].End().y() + Dy));
+	}
+	updateLimits();
+
+	xOffset = xmax - xClick;
+	yOffset = ymax - yClick;
+}
