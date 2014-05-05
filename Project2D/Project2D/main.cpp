@@ -44,7 +44,7 @@ int main(int argc, char* argv[]) {
 	// Choose a word randomly from databse
 	srand(time(NULL));
 	int index = rand() % SIZE_OF_DICTIONARY;
-	string word = "a"; //dictionary[index];
+	string word = "v"; //dictionary[index];
 	Object2D *c = NULL;
 	letters;
 	for (int i = 0; i < word.length(); ++i) {

@@ -86,7 +86,7 @@ void Polygon::fillColor()
 			{
 				if(j+1<intersect.size())
 				{
-					Line l(Vec2f(intersect[j], i), Vec2f(intersect[j+1], i), color);
+					Line l(Vec2f(intersect[j], i), Vec2f(intersect[j + 1] + 1, i), color);
 					//l.Draw(0, 0);
 					l.DrawGL();
 				}
