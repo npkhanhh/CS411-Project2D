@@ -45,11 +45,12 @@ int main(int argc, char* argv[]) {
 	// Choose a word randomly from databse
 	srand(time(NULL));
 	int index = rand() % SIZE_OF_DICTIONARY;
-	string word = "v"; //dictionary[index];
+	string word = "abc"; //dictionary[index];
 	Object2D *c = NULL;
 	letters;
 	for (int i = 0; i < word.length(); ++i) {
 		c = getLetter(word[i]);
+		c->rotate(-45);
 		letters.push_back(*c);
 		delete c;
 		c = NULL;

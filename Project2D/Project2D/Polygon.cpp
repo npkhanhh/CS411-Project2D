@@ -220,3 +220,31 @@ void Polygon::clickMove(const int &x, const int &y) {
 	xOffset = xmax - xClick;
 	yOffset = ymax - yClick;
 }
+
+void Polygon::rotate(int angle)
+{
+	float pivotx = (xmin + xmax)/2;
+	float pivoty = (ymin + ymax)/2;
+	Vec2f nStart, nEnd;
+	float x, y, nx, ny;
+	float PI = 3.14159;
+	for(int i = 0;i<v.size();++i)
+	{
+		x = v[i].Start().x() - pivotx;
+		y = v[i].Start().y() - pivoty;
+
+		nx = x*cos(angle*PI/180) - y*sin(angle*PI/180);
+		ny = x*sin(angle*PI/180) + y*cos(angle*PI/180);
+
+		nStart.Set(nx, ny);
+
+		x = v[i].End().x() - pivotx;
+		y = v[i].End().y() - pivoty;
+
+		nx = x*cos(angle*PI/180) - y*sin(angle*PI/180);
+		ny = x*sin(angle*PI/180) + y*cos(angle*PI/180);
+
+		nEnd.Set(nx, ny);
+		v[i].setEndPoints(nStart, nEnd);
+	}
+}

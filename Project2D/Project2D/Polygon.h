@@ -41,5 +41,7 @@ public:
 	bool isClicked();
 	void setRelease();
 	void clickMove(const int &, const int &y); // move the polygon to (x, y) by mouse
+
+	void rotate(int angle);
 };
 

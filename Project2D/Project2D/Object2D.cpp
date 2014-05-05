@@ -156,3 +156,9 @@ void Object2D::moveClickedPolygon(const int &x, const int &y) {
 		clickedPolygon->clickMove(x, y);
 	}
 }
+
+void Object2D::rotate(int angle)
+{
+	for(int i = 0;i<polygons.size(); ++i)
+		polygons[i].rotate(angle);
+}

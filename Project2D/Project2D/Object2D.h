@@ -10,7 +10,7 @@ private:
 protected:
 	vector<Polygon> polygons;
 	bool isClicked;	// to determine whether any polygon is clicked without checking each polygon
-	Polygon *clickedPolygon = NULL;	// point to the polygon that is clicked, for faster performance
+	Polygon *clickedPolygon;// = NULL;	// point to the polygon that is clicked, for faster performance
 public:
 	Object2D(void);
 	void fillColor();
@@ -23,5 +23,7 @@ public:
 	bool setClicked(const int &x, const int &y);
 	void setReleased();
 	void moveClickedPolygon(const int &x, const int &y);
+
+	void rotate(int angle);
 };
 
