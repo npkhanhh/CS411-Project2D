@@ -41,7 +41,7 @@ void Polygon::Draw() {
 
 void Polygon::addEdge(Vec2f &start, Vec2f &end) {
 	v.push_back(Line(start, end));
-	
+
 	updateLimits();
 }
 
@@ -59,12 +59,12 @@ void Polygon::fillColor()
 	vector<float> intersect;
 	/*for(int i=0; i<v.size(); ++i)
 	{
-		temp = v[i].ymax();
-		if(temp>ymax)
-			ymax = temp;
-		temp = v[i].ymin();
-		if(temp<ymin)
-			ymin = temp;
+	temp = v[i].ymax();
+	if(temp>ymax)
+	ymax = temp;
+	temp = v[i].ymin();
+	if(temp<ymin)
+	ymin = temp;
 	}*/
 	for(int i = ymin; i<=ymax; ++i)
 	{
@@ -75,7 +75,7 @@ void Polygon::fillColor()
 			v[j].equation(A, B, C);
 			if(A!=0)
 				temp = (-(B*i+C))/A;
-			
+
 			if(temp<=v[j].xmax() && temp>=v[j].xmin() && i<v[j].ymax() && i>=v[j].ymin())
 				intersect.push_back(temp);
 		}
@@ -248,3 +248,72 @@ void Polygon::rotate(int angle)
 		v[i].setEndPoints(nStart, nEnd);
 	}
 }
+
+vector<Polygon> Polygon::connectedComponent()
+{
+	vector<Polygon> result;
+	vector<Line> lines = v;
+	Vec2f begin, start;
+	while(!lines.empty())
+	{
+		vector<bool> marker(lines.size(), true);
+		bool flag = true;
+		begin = lines[0].Start();
+		start = lines[0].End();
+		marker[0] = false;
+		while(flag)
+		{
+			for(int i = 0;i<lines.size();++i)
+			{
+				if(lines[i].Start() == start && marker[i]) {
+					if(lines[i].End() == begin) {
+						marker[i] = flag = false;
+						break; }
+					else {
+						start = lines[i].End();
+						marker[i] = false;}
+				}
+				else if(lines[i].End() == start && marker[i]) {
+					if(lines[i].Start() == begin){
+						marker[i] = flag = false;
+						break; }
+					else {
+						start = lines[i].Start();
+						marker[i] = false; }
+				}
+			}
+		}
+		Polygon temp;
+		for(int i = 0;i<lines.size();++i)
+		{
+			if(!marker[i])
+			{
+				temp.addEdge(lines[i]);
+				lines.erase(lines.begin() + i);
+			}
+		}
+		result.push_back(temp);
+	}
+
+	return result;
+}
+
+bool Polygon::merge(Polygon p)
+{
+	for(int i=0;i<v.size();++i)
+	{
+		for(int j=0;j<p.v.size();++j)
+		{
+			if(v[i].Start() == p.v[j].Start() && v[i].End() == p.v[j].End())
+			{
+				v.erase(v.begin() + i);
+				p.v.erase(p.v.begin() + j);
+				v.insert(v.end(), p.v.begin(), p.v.end());
+				p.v.clear();
+				return true;
+			}
+		}
+	}
+	return false;
+}
+

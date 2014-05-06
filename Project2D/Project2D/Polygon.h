@@ -43,5 +43,7 @@ public:
 	void clickMove(const int &, const int &y); // move the polygon to (x, y) by mouse
 
 	void rotate(int angle);
+	vector<Polygon> connectedComponent(); // return the vector of polygons
+	bool merge(Polygon p);
 };
 
