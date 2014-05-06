@@ -99,9 +99,9 @@ void Object2D::Cut(int pieces)
 			sort(intersect.begin(), intersect.end());
 			for(int i =0;i<intersect.size()-1;i+=2)
 			{
-				Line l(intersect[i], intersect[i+1], color);
-				positive.addEdge(l);
-				negative.addEdge(l);
+				Line line1(intersect[i], intersect[i+1], color);
+				positive.addEdge(line1);
+				negative.addEdge(line1);
 			}
 		}
 		vector<Polygon> posPoly, negPoly;
@@ -115,6 +115,74 @@ void Object2D::Cut(int pieces)
 			polygons.push_back(negative);	// add one more polygon
 		}
 	}
+}
+
+void Object2D::Cut(Line l)
+{	
+	int p = 0;
+	int startx, starty, endx, endy, boundx, boundy, index, temp;
+	bool flag = true;
+	vector<Vec2i> intersect;
+	vector<Line> lines;
+	Vec3f color;
+	vector<Polygon> tempPoly;
+	for(int i = 0;i<polygons.size();++i)
+	{
+
+		lines = polygons[i].getLines();
+		color = polygons[i].getColor();
+
+		intersect.clear();
+		flag = false; 
+
+
+		Polygon positive(color), negative(color);
+		for(int i = 0;i<lines.size();++i)
+		{
+			int sideOfStart = l.checkSide(lines[i].Start());
+			int sideOfEnd = l.checkSide(lines[i].End());
+			if(sideOfStart < 0 && sideOfEnd < 0)
+				negative.addEdge(lines[i]);
+			else if(sideOfStart > 0 && sideOfEnd > 0)
+				positive.addEdge(lines[i]);
+			else
+			{
+				Vec2i interpoint = l.intersection(lines[i]);
+				Line posl, negl;
+				posl.SetColor(color);
+				negl.SetColor(color);
+				if(sideOfStart > 0)
+				{
+					posl.setEndPoints(lines[i].Start(), interpoint);
+					negl.setEndPoints(lines[i].End(), interpoint);
+				}
+				else
+				{
+					posl.setEndPoints(lines[i].End(), interpoint);
+					negl.setEndPoints(lines[i].Start(), interpoint);
+				}
+				intersect.push_back(interpoint);
+				positive.addEdge(posl);
+				negative.addEdge(negl);
+			}
+
+		}
+		if(!intersect.empty())
+		{
+			sort(intersect.begin(), intersect.end());
+			for(int i =0;i<intersect.size()-1;i+=2)
+			{
+				Line line1(intersect[i], intersect[i+1], color);
+				positive.addEdge(line1);
+				negative.addEdge(line1);
+			}
+		}
+		if(positive.Perimeter()>=0)
+			tempPoly.push_back(positive);
+		if(negative.Perimeter()>=0)
+			tempPoly.push_back(negative);	
+	}
+	polygons.insert(polygons.end(), tempPoly.begin(), tempPoly.end());
 }
 
 Object2D::~Object2D(void)

@@ -16,6 +16,7 @@ public:
 	void fillColor();
 	void Draw(const int &x, const int &y);
 	void Cut(int pieces);
+	void Cut(Line l);
 	void Draw();
 	~Object2D(void);
 
