@@ -29,7 +29,7 @@ void Object2D::Cut(int pieces)
 	int p = 0;
 	int startx, starty, endx, endy, boundx, boundy, index, temp;
 	bool flag = true;
-	vector<Vec2f> intersect;
+	vector<Vec2i> intersect;
 	vector<Line> lines;
 	Line l;
 	l.SetColor(polygons[0].getColor());
@@ -56,7 +56,7 @@ void Object2D::Cut(int pieces)
 		starty = rand() % boundy + polygons[index].yMin();
 		endx = rand() % boundx + polygons[index].xMin();
 		endy = rand() % boundy + polygons[index].yMin();
-		l.setEndPoints(Vec2f(startx, starty), Vec2f(endx, endy));
+		l.setEndPoints(Vec2i(startx, starty), Vec2i(endx, endy));
 
 
 		intersect.clear();
@@ -74,7 +74,7 @@ void Object2D::Cut(int pieces)
 				positive.addEdge(lines[i]);
 			else
 			{
-				Vec2f interpoint = l.intersection(lines[i]);
+				Vec2i interpoint = l.intersection(lines[i]);
 				Line posl, negl;
 				posl.SetColor(color);
 				negl.SetColor(color);

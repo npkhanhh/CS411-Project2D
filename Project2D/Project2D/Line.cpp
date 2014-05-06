@@ -5,12 +5,12 @@ Line::Line()
 {
 }
 
-Line::Line(Vec2f _start, Vec2f _end) {
+Line::Line(Vec2i _start, Vec2i _end) {
 	colorField.Set(0, 0, 0);
 	setEndPoints(_start, _end);
 }
 
-Line::Line(Vec2f _start, Vec2f _end, Vec3f _colorField) {
+Line::Line(Vec2i _start, Vec2i _end, Vec3f _colorField) {
 	colorField = _colorField;
 	setEndPoints(_start, _end);
 }
@@ -23,8 +23,8 @@ Line::~Line()
 void Line::Draw(const int &x, const int &y) {
 	
 	
-	Vec2f _start(start.x() + x, start.y() + y);
-	Vec2f _end(end.x() + x, end.y() + y);
+	Vec2i _start(start.x() + x, start.y() + y);
+	Vec2i _end(end.x() + x, end.y() + y);
 	setEndPoints(_start, _end);
 	
 
@@ -120,7 +120,7 @@ void Line::setPixel(const float &x, const float &y, const Vec3f &color) {
 }
 
 
-void Line::setEndPoints(const Vec2f &_start, const Vec2f &_end) {
+void Line::setEndPoints(const Vec2i &_start, const Vec2i &_end) {
 	start = _start;
 	end = _end;
 	// First, put the point in order where 'start.x()' < 'end.x()'
@@ -178,32 +178,32 @@ double Line::length()
 	return sqrt((end.x()-start.x())*((end.x()-start.x()))+(end.y()-start.y())*((end.y()-start.y())));
 }
 
-int Line::checkSide(Vec2f point)
+int Line::checkSide(Vec2i point)
 {
 	if(A*point[0]+B*point[1]+C>0)
 		return 1;
 	return -1;
 }
 
-Vec2f Line::intersection(Line l)
+Vec2i Line::intersection(Line l)
 {
-	float nu = A*l.C-l.A*C;
-	float de = l.A*B-A*l.B;
-	float intery = (float)nu/de;
-	float interx = (-(B*intery + C))/A;
+	int nu = A*l.C-l.A*C;
+	int de = l.A*B-A*l.B;
+	int intery = nu/de;
+	int interx = (-(B*intery + C))/A;
 
-	Vec2f r(interx, intery);
+	Vec2i r(interx, intery);
 
 	return r;
 
 }
 
-Vec2f Line::Start()
+Vec2i Line::Start()
 {
 	return start;
 }
 
-Vec2f Line::End()
+Vec2i Line::End()
 {
 	return end;
 }

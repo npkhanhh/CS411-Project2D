@@ -576,6 +576,15 @@ public:
     data[0] /= f;
     data[1] /= f;
     return *this; }
+
+  bool operator<(const Vec2i &V2)
+  {
+	  if(data[0]<V2.data[0])
+		  return true;
+	  if(data[0] == V2.data[0] && data[1]<V2.data[1])
+		  return true;
+	  return false;
+  }
   
   // OPERATIONS
   int Dot2(const Vec2i &V) const {

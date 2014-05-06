@@ -81,8 +81,7 @@ int main(int argc, char* argv[]) {
 	for (int i = 0; i < word.length(); ++i) {
 		c = getLetter(word[i]);
 		c->Cut(2);
-		c->Draw(-1, -1);
-		//letters.push_back(*c);
+		letters.push_back(*c);
 		delete c;
 		c = NULL;
 	}
@@ -263,7 +262,7 @@ void MouseClick(int iButton, int iState, int x, int y) {
 			xMouse = x;
 			yMouse = y;
 			isPressing = false;
-			globalLine.setEndPoints(Vec2f(x_1, y_1), Vec2f(x_2, y_2));
+			globalLine.setEndPoints(Vec2i(x_1, y_1), Vec2i(x_2, y_2));
 
 			// disable cut to test dragging object
 
@@ -284,7 +283,7 @@ void MouseMotionFunction(int x, int y) {
 
 	xMouse = x;
 	yMouse = y;
-	globalLine.setEndPoints(Vec2f(x_1, y_1), Vec2f(x_2, y_2));
+	globalLine.setEndPoints(Vec2i(x_1, y_1), Vec2i(x_2, y_2));
 
 	if (clickedObject) {
 		// if user clicked on some object, then drag it

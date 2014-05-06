@@ -23,7 +23,7 @@ public:
 	~Polygon(void);
 
 	void fillColor();
-	void addEdge(Vec2f &start, Vec2f &end);
+	void addEdge(Vec2i &start, Vec2i &end);
 	void addEdge(Line &line);
 	void Draw(const int &x, const int &y);
 	double Perimeter();

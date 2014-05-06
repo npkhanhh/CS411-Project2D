@@ -39,7 +39,7 @@ void Polygon::Draw() {
 	this->Draw(0, 0);
 }
 
-void Polygon::addEdge(Vec2f &start, Vec2f &end) {
+void Polygon::addEdge(Vec2i &start, Vec2i &end) {
 	v.push_back(Line(start, end));
 
 	updateLimits();
@@ -86,7 +86,7 @@ void Polygon::fillColor()
 			{
 				if(j+1<intersect.size())
 				{
-					Line l(Vec2f(intersect[j], i), Vec2f(intersect[j + 1] + 1, i), color);
+					Line l(Vec2i(intersect[j], i), Vec2i(intersect[j + 1] + 1, i), color);
 					//l.Draw(0, 0);
 					l.DrawGL();
 				}
@@ -213,7 +213,7 @@ void Polygon::clickMove(const int &x, const int &y) {
 
 	for (int i = 0; i < v.size(); ++i) {
 		// shift all the edges
-		v[i].setEndPoints(Vec2f(v[i].Start().x() + Dx, v[i].Start().y() + Dy), Vec2f(v[i].End().x() + Dx, v[i].End().y() + Dy));
+		v[i].setEndPoints(Vec2i(v[i].Start().x() + Dx, v[i].Start().y() + Dy), Vec2i(v[i].End().x() + Dx, v[i].End().y() + Dy));
 	}
 	updateLimits();
 
@@ -225,7 +225,7 @@ void Polygon::rotate(int angle)
 {
 	float pivotx = (xmin + xmax)/2;
 	float pivoty = (ymin + ymax)/2;
-	Vec2f nStart, nEnd;
+	Vec2i nStart, nEnd;
 	float x, y, nx, ny;
 	float PI = 3.14159;
 	for(int i = 0;i<v.size();++i)
@@ -253,7 +253,7 @@ vector<Polygon> Polygon::connectedComponent()
 {
 	vector<Polygon> result;
 	vector<Line> lines = v;
-	Vec2f begin, start;
+	Vec2i begin, start;
 	while(!lines.empty())
 	{
 		vector<bool> marker(lines.size(), true);
@@ -297,7 +297,7 @@ vector<Polygon> Polygon::connectedComponent()
 		lines = tempLine;
 		result.push_back(temp);
 	}
-	vector<int> insidePoly;
+	vector<bool> insidePoly(result.size(), true);
 	for(int i = 0;i<result.size();++i)
 	{
 		for(int j = 0;j<result.size();++j)
@@ -306,12 +306,17 @@ vector<Polygon> Polygon::connectedComponent()
 			{
 				vector<Line> l = result[j].getLines();
 				if(result[i].isInside(l[0].Start().x(), l[0].Start().y()) && result[i].isInside(l[0].End().x(), l[0].End().y()))
-					insidePoly.push_back(j);
+					insidePoly[i] = false;
 			}
 		}
 	}
+	vector<Polygon> tempPoly;
 	for(int i = 0;i<insidePoly.size();++i)
-		result.erase(result.begin() - insidePoly[i] - i);
+	{
+		if(insidePoly[i])
+			tempPoly.push_back(result[i]);
+	}
+	result = tempPoly;
 	return result;
 }
 
