@@ -75,6 +75,10 @@ int main(int argc, char* argv[]) {
 	// Choose a word randomly from databse
 	srand(time(NULL));
 	int index = rand() % SIZE_OF_DICTIONARY;
+	cout << "Choose difficult mode: " << endl;
+	cout << "1. Easy" << endl;
+	cout << "2. Normal" << endl;
+	cout << "3. Hard" << endl;
 	string word = "a";//dictionary[index];
 	Object2D *c = NULL;
 	letters;
