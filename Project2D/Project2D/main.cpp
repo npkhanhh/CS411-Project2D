@@ -142,7 +142,8 @@ void RenderScene(void) {
 	renderWord();
 
 	// Render global line
-	//globalLine.Draw(0, 0);
+	if (isPressing)
+		globalLine.Draw(0, 0);
 
 	// Render the coordinate of the mouse
 	//renderMouseCoordinate();
@@ -264,9 +265,13 @@ void MouseClick(int iButton, int iState, int x, int y) {
 			isPressing = false;
 			globalLine.setEndPoints(Vec2i(x_1, y_1), Vec2i(x_2, y_2));
 
-			// disable cut to test dragging object
-
-			if (clickedObject) {
+			// cut letters if the globalLine crosses it
+			if (clickedObject == NULL) {
+				for (int i = 0; i < letters.size(); ++i) {
+					letters[i].Cut(globalLine);
+				}
+			}
+			else {
 				// if there was an objected that was clicked, release it
 				clickedObject->setReleased();
 				clickedObject = NULL;
