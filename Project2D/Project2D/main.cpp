@@ -14,6 +14,15 @@ vector<Object2D> letters;		// the letters in the word
 bool firstRender = true;
 Object2D *clickedObject = NULL;
 long timeLeft = 600;
+bool chooseLevel = false;
+
+// Level
+enum Level{ HARD, MEDIUM, EASY };
+Level level;
+Polygon *hardPolygon = NULL;
+Polygon *mediumPolygon = NULL;
+Polygon *easyPolygon = NULL;
+Polygon *clickedPolygon = NULL;
 
 // vars to tracking mouse activities
 bool clickedOnObject = false;
@@ -60,6 +69,7 @@ int wWidth = 1500;	// width of window
 int wHeight = 800;	// height of window
 
 void InitSetup();
+void renderLevelOptions(void);
 void renderWord(void);
 void RenderScene(void);
 void renderMouseCoordinate(void);
@@ -69,22 +79,26 @@ void MouseMotionFunction(int x, int y);					// Callback function triggered when 
 void MousePassiveMotionFunction(int x, int y);			// Callback function triggered when mouse moves when no mouse button is pressed
 void countdownFunction(int value);
 
+void freeOptionPolygon(void);
+
 Object2D *getLetter(char &c);
 
 int main(int argc, char* argv[]) {
 	// Choose a word randomly from databse
 	srand(time(NULL));
 	int index = rand() % SIZE_OF_DICTIONARY;
-	cout << "Choose difficult mode: " << endl;
-	cout << "1. Easy" << endl;
-	cout << "2. Normal" << endl;
-	cout << "3. Hard" << endl;
-	string word = "a";//dictionary[index];
+	string word = dictionary[index];
 	Object2D *c = NULL;
 	letters;
 	for (int i = 0; i < word.length(); ++i) {
 		c = getLetter(word[i]);
-		//c->Cut(2);
+		if (level == HARD)
+			c->Cut(6);
+		else if (level == MEDIUM)
+			c->Cut(5);
+		else if (level == EASY)
+			c->Cut(4);
+
 		letters.push_back(*c);
 		delete c;
 		c = NULL;
@@ -142,21 +156,78 @@ void RenderScene(void) {
 	glEnd();
 	glFlush();
 
-	// render the whole word
-	renderWord();
+	// check if user chose the level
+	// if not, render options
+	if (!chooseLevel) {
+		renderLevelOptions();
+	}
+	else {
+		// render the whole word
+		renderWord();
 
-	// Render global line
-	if (isPressing)
-		globalLine.Draw(0, 0);
+		// Render global line
+		if (isPressing)
+			globalLine.Draw(0, 0);
 
-	// Render the coordinate of the mouse
-	//renderMouseCoordinate();
+		// Render the coordinate of the mouse
+		//renderMouseCoordinate();
 
 
-	// Render Clock
-	renderClock();
+		// Render Clock
+		renderClock();
+	}
 
 	glutSwapBuffers();
+}
+
+void renderLevelOptions(void) {
+	hardPolygon = new Polygon(Vec3f(0, 1, 0));
+	hardPolygon->addEdge(Vec2i(0, 0), Vec2i(200, 0));
+	hardPolygon->addEdge(Vec2i(200, 100), Vec2i(200, 0));
+	hardPolygon->addEdge(Vec2i(200, 100), Vec2i(0, 100));
+	hardPolygon->addEdge(Vec2i(0, 0), Vec2i(0, 100));
+
+	mediumPolygon = new Polygon(*hardPolygon);
+	easyPolygon = new Polygon(*hardPolygon);
+
+	easyPolygon->Draw((wWidth / 2) - 100, (wHeight / 2) - 200);
+	mediumPolygon->Draw((wWidth / 2) - 100, (wHeight / 2) - 50);
+	hardPolygon->Draw((wWidth / 2) - 100, (wHeight / 2) + 100);
+
+	hardPolygon->fillColor();
+	mediumPolygon->fillColor();
+	easyPolygon->fillColor();
+
+
+	// render text of buttons
+
+	string msg("Choose a dificulty level");
+	string hardStr("HARD");
+	string mediumStr("MEDIUM");
+	string easyStr("EASY");
+	glColor3f(0, 0, 0);
+	
+	glRasterPos2d(wWidth/2 - 90, wHeight/2 + 250);
+	for (int i = 0; i < msg.size(); ++i) {
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, msg[i]);
+	}
+
+	glRasterPos2d(wWidth / 2 - 50, wHeight / 2 + 150);
+	for (int i = 0; i < hardStr.size(); ++i) {
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, hardStr[i]);
+	}
+
+	glRasterPos2d(wWidth/2 - 50, wHeight/2 + 0);
+	for (int i = 0; i < mediumStr.size(); ++i) {
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, mediumStr[i]);
+	}
+
+	glRasterPos2d(wWidth/2 - 50, wHeight/2 - 150);
+	for (int i = 0; i < easyStr.size(); ++i) {
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, easyStr[i]);
+	}
+
+	glutPostRedisplay();
 }
 
 void renderWord(void) {
@@ -211,6 +282,12 @@ void renderClock(void) {
 		for (int i = 0; i < timeLeftStr.size(); ++i) {
 			glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, timeLeftStr[i]);
 		}
+
+		string timeoutStr("TIME OUT");
+		glRasterPos2d(wWidth / 2 - 100, wHeight / 2 + 50);
+		for (int i = 0; i < timeoutStr.size(); ++i) {
+			glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, timeoutStr[i]);
+		}
 	}
 	else {
 		if (timeLeft < 30)
@@ -251,12 +328,40 @@ void MouseClick(int iButton, int iState, int x, int y) {
 			yMouse = y;
 			isPressing = true;
 			clickedOnObject = false;
-			for (int i = 0; i < letters.size(); ++i) {
-				if (letters[i].isInside(x, wHeight - y)) {
-					clickedOnObject = true;
-					clickedObject = &letters[i];
-					clickedObject->setClicked(x, wHeight - y);
-					break;
+			if (!chooseLevel) {
+				if (hardPolygon->isInside(x, wHeight - y)) {
+					clickedPolygon = hardPolygon;
+					clickedOnObject = false;
+					level = HARD;
+					chooseLevel = true;
+					freeOptionPolygon();
+					timeLeft = 1500;
+				}
+				else if (mediumPolygon->isInside(x, wHeight - y)) {
+					clickedPolygon = mediumPolygon;
+					clickedOnObject = false;
+					level = MEDIUM;
+					chooseLevel = true;
+					freeOptionPolygon();
+					timeLeft = 900;
+				}
+				else if (easyPolygon->isInside(x, wHeight - y)) {
+					clickedPolygon = easyPolygon;
+					clickedOnObject = false;
+					level = EASY;
+					chooseLevel = true;
+					freeOptionPolygon();
+					timeLeft = 10;
+				}
+			}
+			else {
+				for (int i = 0; i < letters.size(); ++i) {
+					if (letters[i].isInside(x, wHeight - y)) {
+						clickedOnObject = true;
+						clickedObject = &letters[i];
+						clickedObject->setClicked(x, wHeight - y);
+						break;
+					}
 				}
 			}
 		}
@@ -269,17 +374,20 @@ void MouseClick(int iButton, int iState, int x, int y) {
 			isPressing = false;
 			globalLine.setEndPoints(Vec2i(x_1, y_1), Vec2i(x_2, y_2));
 
-			// cut letters if the globalLine crosses it
-			if (clickedObject == NULL) {
-				for (int i = 0; i < letters.size(); ++i) {
-					letters[i].Cut(globalLine);
+			if (chooseLevel) {
+				// cut letters if the globalLine crosses it
+				if (clickedObject == NULL) {
+					for (int i = 0; i < letters.size(); ++i) {
+						letters[i].Cut(globalLine);
+					}
+				}
+				else {
+					// if there was an objected that was clicked, release it
+					clickedObject->setReleased();
+					clickedObject = NULL;
 				}
 			}
-			else {
-				// if there was an objected that was clicked, release it
-				clickedObject->setReleased();
-				clickedObject = NULL;
-			}
+			
 			glutPostRedisplay();
 		}
 
@@ -432,4 +540,13 @@ Object2D *getLetter(char &c) {
 		return new Z();
 		break;
 	}
+}
+
+void freeOptionPolygon(void) {
+	delete hardPolygon;
+	hardPolygon = NULL;
+	delete mediumPolygon;
+	mediumPolygon = NULL;
+	delete easyPolygon;
+	easyPolygon = NULL;
 }
