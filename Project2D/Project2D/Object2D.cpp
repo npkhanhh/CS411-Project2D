@@ -104,7 +104,10 @@ void Object2D::Cut(int pieces)
 				negative.addEdge(l);
 			}
 		}
-		if(positive.Perimeter()>=MININUM_PERIMETER && negative.Perimeter()>=MININUM_PERIMETER)
+		vector<Polygon> posPoly, negPoly;
+		posPoly = positive.connectedComponent();
+		negPoly = negative.connectedComponent();
+		if(positive.Perimeter()>=MININUM_PERIMETER && negative.Perimeter()>=MININUM_PERIMETER && posPoly.size() == 1 && negPoly.size() == 1)
 		{
 			flag = true; //We made a cut
 			++p;

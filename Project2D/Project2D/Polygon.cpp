@@ -125,7 +125,7 @@ bool Polygon::isInside(const int &x, const int &y) {
 		if (!intersect.empty()) {
 			sort(intersect.begin(), intersect.end());
 			for (int j = 0; j < intersect.size()-1; j += 2) {
-				if (x >= intersect[j] && x <= intersect[j + 1]) {
+				if (x > intersect[j] && x < intersect[j + 1]) {
 					intersect.clear();
 					return true;
 				}
@@ -284,17 +284,34 @@ vector<Polygon> Polygon::connectedComponent()
 			}
 		}
 		Polygon temp;
-		for(int i = 0;i<lines.size();++i)
+		vector<Line> tempLine;
+		int n = lines.size();
+		for(int i = 0;i<n;++i)
 		{
 			if(!marker[i])
-			{
 				temp.addEdge(lines[i]);
-				lines.erase(lines.begin() + i);
-			}
+			else
+				tempLine.push_back(lines[i]);
 		}
+		lines.clear();
+		lines = tempLine;
 		result.push_back(temp);
 	}
-
+	vector<int> insidePoly;
+	for(int i = 0;i<result.size();++i)
+	{
+		for(int j = 0;j<result.size();++j)
+		{
+			if(i!=j)
+			{
+				vector<Line> l = result[j].getLines();
+				if(result[i].isInside(l[0].Start().x(), l[0].Start().y()) && result[i].isInside(l[0].End().x(), l[0].End().y()))
+					insidePoly.push_back(j);
+			}
+		}
+	}
+	for(int i = 0;i<insidePoly.size();++i)
+		result.erase(result.begin() - insidePoly[i] - i);
 	return result;
 }
 

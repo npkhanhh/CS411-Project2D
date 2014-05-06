@@ -80,8 +80,9 @@ int main(int argc, char* argv[]) {
 	letters;
 	for (int i = 0; i < word.length(); ++i) {
 		c = getLetter(word[i]);
-		c->rotate(-45);
-		letters.push_back(*c);
+		c->Cut(2);
+		c->Draw(-1, -1);
+		//letters.push_back(*c);
 		delete c;
 		c = NULL;
 	}
@@ -265,11 +266,6 @@ void MouseClick(int iButton, int iState, int x, int y) {
 			globalLine.setEndPoints(Vec2f(x_1, y_1), Vec2f(x_2, y_2));
 
 			// disable cut to test dragging object
-			/*for(int i = 0;i<letters.size();++i)
-			{
-			letters[i].Cut(2);
-			letters[i].Draw(-1, -1);
-			}*/
 
 			if (clickedObject) {
 				// if there was an objected that was clicked, release it
