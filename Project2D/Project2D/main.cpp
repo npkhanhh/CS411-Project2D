@@ -9,7 +9,7 @@
 int x_1, x_2;
 int y_1, y_2;
 Line globalLine;
-const int SIZE_OF_DICTIONARY = 5;
+const int SIZE_OF_DICTIONARY = 30;
 vector<Object2D> letters;		// the letters in the word
 bool firstRender = true;
 Object2D *clickedObject = NULL;
@@ -24,9 +24,34 @@ int xMouse, yMouse;	// position of the mouse
 string dictionary[SIZE_OF_DICTIONARY] = {
 	"Graphics",
 	"Computer",
-	"DucHuy",
-	"PhucKhanh",
-	"Project"
+	"Project",
+	"Final",
+	"Student",
+	"Teacher",
+	"KHTN",
+	"University",
+	"Grade",
+	"School",
+	"Friend",
+	"Study",
+	"National",
+	"Science",
+	"Class",
+	"Year",
+	"Academy",
+	"Happy",
+	"Funny",
+	"Joyful",
+	"Smile",
+	"Love",
+	"Train",
+	"Car",
+	"Ship",
+	"Boat",
+	"Dog",
+	"Horse",
+	"Bunny",
+	"Bird"
 };
 
 
@@ -35,7 +60,10 @@ int wWidth = 1500;	// width of window
 int wHeight = 800;	// height of window
 
 void InitSetup();
+void renderWord(void);
 void RenderScene(void);
+void renderMouseCoordinate(void);
+void renderClock(void);
 void MouseClick(int iButton, int iState, int x, int y);	// Callback function triggered when mouse button is actived
 void MouseMotionFunction(int x, int y);					// Callback function triggered when mouse moves when one mouse button is pressed
 void MousePassiveMotionFunction(int x, int y);			// Callback function triggered when mouse moves when no mouse button is pressed
@@ -47,7 +75,7 @@ int main(int argc, char* argv[]) {
 	// Choose a word randomly from databse
 	srand(time(NULL));
 	int index = rand() % SIZE_OF_DICTIONARY;
-	string word = "abc"; //dictionary[index];
+	string word = dictionary[index];
 	Object2D *c = NULL;
 	letters;
 	for (int i = 0; i < word.length(); ++i) {
@@ -111,6 +139,22 @@ void RenderScene(void) {
 	glFlush();
 
 	// render the whole word
+	renderWord();
+
+	// Render global line
+	//globalLine.Draw(0, 0);
+
+	// Render the coordinate of the mouse
+	//renderMouseCoordinate();
+
+
+	// Render Clock
+	renderClock();
+
+	glutSwapBuffers();
+}
+
+void renderWord(void) {
 	// if this is the first time the word is rendered, 
 	// set up the offset that that word will be translated
 	if (firstRender) {
@@ -128,36 +172,11 @@ void RenderScene(void) {
 			letters[i].fillColor();
 		}
 	}
+	
+	glutPostRedisplay();
+}
 
-	// Render global line
-	globalLine.Draw(0, 0);
-
-
-	// Render the signal rectangle, green if clicked on object, red if not
-	if (clickedOnObject) {
-		glColor3f(0, 1, 0);
-		glBegin(GL_POLYGON);
-		glVertex2f(0, 0);
-		glVertex2f(100, 0);
-		glVertex2f(100, 100);
-		glVertex2f(0, 100);
-		glEnd();
-		glFlush();
-		glutPostRedisplay();
-	}
-	else {
-		glColor3f(1, 0, 0);
-		glBegin(GL_POLYGON);
-		glVertex2f(0, 0);
-		glVertex2f(100, 0);
-		glVertex2f(100, 100);
-		glVertex2f(0, 100);
-		glEnd();
-		glFlush();
-		glutPostRedisplay();
-	}
-
-	// Render the coordinate of the mouse
+void renderMouseCoordinate(void) {
 	int cur = 0;
 	if (isPressing)
 		glColor3f(1, 0, 0);
@@ -176,8 +195,10 @@ void RenderScene(void) {
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_10, yMouseStr[i]);
 	}
 
+	glutPostRedisplay();
+}
 
-	// Render Clock
+void renderClock(void) {
 	if (timeLeft == 0) {
 		glColor3f(1, 0, 0);
 		string timeLeftStr("Time left: 00:00");
@@ -209,8 +230,8 @@ void RenderScene(void) {
 			glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, timeLeftStr[i]);
 		}
 	}
-
-	glutSwapBuffers();
+	
+	glutPostRedisplay();
 }
 
 
