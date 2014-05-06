@@ -179,12 +179,12 @@ void Object2D::Cut(Line l)
 				negative.addEdge(line1);
 			}
 		}
-		if(positive.Perimeter()>=0)
+		if(positive.Perimeter()>0)
 			tempPoly.push_back(positive);
-		if(negative.Perimeter()>=0)
+		if(negative.Perimeter()>0)
 			tempPoly.push_back(negative);	
 	}
-	polygons.insert(polygons.end(), tempPoly.begin(), tempPoly.end());
+	polygons= tempPoly;
 }
 
 Object2D::~Object2D(void)

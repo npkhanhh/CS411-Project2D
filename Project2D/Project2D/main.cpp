@@ -75,12 +75,12 @@ int main(int argc, char* argv[]) {
 	// Choose a word randomly from databse
 	srand(time(NULL));
 	int index = rand() % SIZE_OF_DICTIONARY;
-	string word = dictionary[index];
+	string word = "a";//dictionary[index];
 	Object2D *c = NULL;
 	letters;
 	for (int i = 0; i < word.length(); ++i) {
 		c = getLetter(word[i]);
-		c->Cut(2);
+		//c->Cut(2);
 		letters.push_back(*c);
 		delete c;
 		c = NULL;
