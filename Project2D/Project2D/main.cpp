@@ -13,6 +13,7 @@ const int SIZE_OF_DICTIONARY = 5;
 vector<Object2D> letters;		// the letters in the word
 bool firstRender = true;
 Object2D *clickedObject = NULL;
+long timeLeft = 600;
 
 // vars to tracking mouse activities
 bool clickedOnObject = false;
@@ -20,10 +21,10 @@ bool isPressing;	// true if left mouse button is clicked
 int xMouse, yMouse;	// position of the mouse
 
 // Dictionary
-string dictionary[SIZE_OF_DICTIONARY] = { 
-	"Graphics", 
-	"Computer", 
-	"DucHuy", 
+string dictionary[SIZE_OF_DICTIONARY] = {
+	"Graphics",
+	"Computer",
+	"DucHuy",
 	"PhucKhanh",
 	"Project"
 };
@@ -38,6 +39,7 @@ void RenderScene(void);
 void MouseClick(int iButton, int iState, int x, int y);	// Callback function triggered when mouse button is actived
 void MouseMotionFunction(int x, int y);					// Callback function triggered when mouse moves when one mouse button is pressed
 void MousePassiveMotionFunction(int x, int y);			// Callback function triggered when mouse moves when no mouse button is pressed
+void countdownFunction(int value);
 
 Object2D *getLetter(char &c);
 
@@ -64,15 +66,16 @@ int main(int argc, char* argv[]) {
 	glutCreateWindow("2D game 1151019-1151020");
 	InitSetup();
 
-	glutDisplayFunc(RenderScene);
-
 	// Register callback functions for mouse control
 	glutMouseFunc(MouseClick);
 	glutMotionFunc(MouseMotionFunction);
 	glutPassiveMotionFunc(MousePassiveMotionFunction);
+	glutTimerFunc(1000, countdownFunction, 0);
+
+	glutDisplayFunc(RenderScene);
 	glutMainLoop();
 
-	
+
 
 	return 0;
 }
@@ -96,14 +99,14 @@ void InitSetup() {
 void RenderScene(void) {
 	glClearColor(1, 1, 1, 0);
 	glClear(GL_COLOR_BUFFER_BIT);
-	
+
 	// Render background
 	glColor3f(1, 1, 1);	// white background
 	glBegin(GL_POLYGON);
-		glVertex2f(0, 0);
-		glVertex2f(wWidth, 0);
-		glVertex2f(wWidth, wHeight);
-		glVertex2f(0, wHeight);
+	glVertex2f(0, 0);
+	glVertex2f(wWidth, 0);
+	glVertex2f(wWidth, wHeight);
+	glVertex2f(0, wHeight);
 	glEnd();
 	glFlush();
 
@@ -134,10 +137,10 @@ void RenderScene(void) {
 	if (clickedOnObject) {
 		glColor3f(0, 1, 0);
 		glBegin(GL_POLYGON);
-			glVertex2f(0, 0);
-			glVertex2f(100, 0);
-			glVertex2f(100, 100);
-			glVertex2f(0, 100);
+		glVertex2f(0, 0);
+		glVertex2f(100, 0);
+		glVertex2f(100, 100);
+		glVertex2f(0, 100);
 		glEnd();
 		glFlush();
 		glutPostRedisplay();
@@ -145,10 +148,10 @@ void RenderScene(void) {
 	else {
 		glColor3f(1, 0, 0);
 		glBegin(GL_POLYGON);
-			glVertex2f(0, 0);
-			glVertex2f(100, 0);
-			glVertex2f(100, 100);
-			glVertex2f(0, 100);
+		glVertex2f(0, 0);
+		glVertex2f(100, 0);
+		glVertex2f(100, 100);
+		glVertex2f(0, 100);
 		glEnd();
 		glFlush();
 		glutPostRedisplay();
@@ -172,7 +175,41 @@ void RenderScene(void) {
 	for (int i = 0; i < yMouseStr.size(); ++i) {
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_10, yMouseStr[i]);
 	}
-	
+
+
+	// Render Clock
+	if (timeLeft == 0) {
+		glColor3f(1, 0, 0);
+		string timeLeftStr("Time left: 00:00");
+		glRasterPos2d(150, wHeight - 150);
+		for (int i = 0; i < timeLeftStr.size(); ++i) {
+			glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, timeLeftStr[i]);
+		}
+	}
+	else {
+		if (timeLeft < 30)
+			glColor3f(1, 0, 0);
+		else
+			glColor3f(0, 0, 0);
+		int min = timeLeft / 60;
+		int sec = timeLeft % 60;
+		string minStr = std::to_string(min);
+		string secStr = std::to_string(sec);
+
+		string timeLeftStr("Time left: ");
+		if (min < 10)
+			timeLeftStr += '0';
+		timeLeftStr += minStr;
+		timeLeftStr += ':';
+		if (sec < 10)
+			timeLeftStr += '0';
+		timeLeftStr += secStr;
+		glRasterPos2d(150, wHeight - 150);
+		for (int i = 0; i < timeLeftStr.size(); ++i) {
+			glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, timeLeftStr[i]);
+		}
+	}
+
 	glutSwapBuffers();
 }
 
@@ -205,12 +242,12 @@ void MouseClick(int iButton, int iState, int x, int y) {
 			yMouse = y;
 			isPressing = false;
 			globalLine.setEndPoints(Vec2f(x_1, y_1), Vec2f(x_2, y_2));
-			
+
 			// disable cut to test dragging object
 			/*for(int i = 0;i<letters.size();++i)
 			{
-				letters[i].Cut(2);
-				letters[i].Draw(-1, -1);
+			letters[i].Cut(2);
+			letters[i].Draw(-1, -1);
 			}*/
 
 			if (clickedObject) {
@@ -220,7 +257,7 @@ void MouseClick(int iButton, int iState, int x, int y) {
 			}
 			glutPostRedisplay();
 		}
-		
+
 	}
 }
 
@@ -244,6 +281,16 @@ void MouseMotionFunction(int x, int y) {
 void MousePassiveMotionFunction(int x, int y) {
 	xMouse = x;
 	yMouse = y;
+	glutPostRedisplay();
+}
+
+
+
+void countdownFunction(int value) {
+	if (timeLeft > 0)
+		--timeLeft;
+
+	glutTimerFunc(1000, countdownFunction, 0);
 	glutPostRedisplay();
 }
 
