@@ -128,7 +128,9 @@ void Object2D::Cut(Line l)
 	vector<Polygon> tempPoly;
 	for(int i = 0;i<polygons.size();++i)
 	{
-
+		if(polygons[i].isInside(l.Start().x(), l.Start().y()) || polygons[i].isInside(l.End().x(), l.End().y()))
+			continue;
+		
 		lines = polygons[i].getLines();
 		color = polygons[i].getColor();
 
